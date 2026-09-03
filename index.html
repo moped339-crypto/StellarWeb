@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stellar Web Studio | Criação de Websites Premium em Portugal</title>
+<meta name="description" content="Criamos websites modernos, rápidos e ultra-otimizados para telemóveis. Atraia mais clientes para o seu negócio em Portugal com a Stellar Web Studio." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<div class="bg-fx" aria-hidden="true">
+  <div class="glow glow-cyan"></div>
+  <div class="glow glow-purple"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="brand">STELLAR WEB STUDIO<span class="brand-dot">.</span></a>
+    <nav class="lang-switch" aria-label="Language switch">
+      <button class="lang-btn active" data-lang="pt">PT</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </nav>
+    <a href="#contact" class="btn btn-neon nav-cta" data-i18n="nav.cta">Fale Connosco</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow" data-i18n="hero.eyebrow">// ESTÚDIO DE WEB DESIGN · PORTUGAL</span>
+      <h1 class="hero-title">
+        <span data-i18n="hero.title1">O Futuro Digital do Seu Negócio</span>
+        <span class="text-gradient" data-i18n="hero.title2">Começa Aqui.</span>
+      </h1>
+      <p class="hero-sub" data-i18n="hero.sub">Criamos websites premium, ultra-modernos e totalmente otimizados para smartphones. Atraia mais clientes em Portugal com uma presença online de elite.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-neon btn-lg" data-i18n="hero.cta1">Agendar Projeto</a>
+        <a href="#portfolio" class="btn btn-ghost btn-lg" data-i18n="hero.cta2">Explorar Serviços</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg class="data-orb" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00ffc2" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#00ffc2" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00ffc2"/>
+            <stop offset="100%" stop-color="#9b5cff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="300" cy="300" r="220" fill="url(#orbGrad)"/>
+        <g stroke="url(#ringGrad)" stroke-width="1" fill="none" opacity="0.8">
+          <ellipse cx="300" cy="300" rx="260" ry="100" class="ring ring-1"/>
+          <ellipse cx="300" cy="300" rx="200" ry="200" class="ring ring-2"/>
+          <ellipse cx="300" cy="300" rx="100" ry="260" class="ring ring-3"/>
+        </g>
+        <g fill="#00ffc2">
+          <circle cx="300" cy="40" r="4"/>
+          <circle cx="560" cy="300" r="3"/>
+          <circle cx="300" cy="560" r="4"/>
+          <circle cx="40" cy="300" r="3"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="metrics">
+    <div class="grid-metrics">
+      <article class="card metric-card">
+        <span class="metric-num">&lt; 1s</span>
+        <span class="metric-label" data-i18n="metrics.m1.label">Tempo de Carregamento</span>
+        <p class="metric-sub" data-i18n="metrics.m1.sub">Abertura instantânea para não perder nenhum cliente.</p>
+      </article>
+      <article class="card metric-card">
+        <span class="metric-num">99.9%</span>
+        <span class="metric-label" data-i18n="metrics.m2.label">Garantia de Uptime</span>
+        <p class="metric-sub" data-i18n="metrics.m2.sub">O seu negócio online disponível 24 horas por dia, sem interrupções.</p>
+      </article>
+      <article class="card metric-card">
+        <span class="metric-num">100%</span>
+        <span class="metric-label" data-i18n="metrics.m3.label">Otimização Móvel</span>
+        <p class="metric-sub" data-i18n="metrics.m3.sub">Layouts fluidos e premium desenhados especificamente para ecrãs de telemóveis.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO / SERVICES -->
+  <section class="section" id="portfolio">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="services.eyebrow">// SETORES</span>
+      <h2 data-i18n="services.title">Soluções feitas para o seu setor</h2>
+      <p class="section-sub" data-i18n="services.sub">Websites de alta performance desenhados especificamente para o seu tipo de negócio.</p>
+    </div>
+    <div class="grid-services">
+      <article class="card">
+        <div class="card-icon">🚗</div>
+        <h3 data-i18n="services.card1.title">Stand de Automóveis</h3>
+        <p data-i18n="services.card1.desc">Catálogos dinâmicos de viaturas com filtros avançados e geração de leads qualificados.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">🍽️</div>
+        <h3 data-i18n="services.card2.title">Restaurante</h3>
+        <p data-i18n="services.card2.desc">Menus digitais elegantes, reservas online e galeria visual que abre o apetite.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">🩺</div>
+        <h3 data-i18n="services.card3.title">Clínica Médica</h3>
+        <p data-i18n="services.card3.desc">Marcação de consultas simplificada e presença digital que transmite confiança.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">⚖️</div>
+        <h3 data-i18n="services.card4.title">Advogado</h3>
+        <p data-i18n="services.card4.desc">Imagem institucional sólida, áreas de prática claras e captação direta de clientes.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">🦷</div>
+        <h3 data-i18n="services.card5.title">Clínica Dentária</h3>
+        <p data-i18n="services.card5.desc">Design clean, antes/depois de tratamentos e agendamento online sem fricção.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="services.card6.title">Eletricista</h3>
+        <p data-i18n="services.card6.desc">Página rápida e direta ao ponto para pedidos de orçamento urgentes.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="pricing.eyebrow">// INVESTIMENTO</span>
+      <h2 data-i18n="pricing.title">Planos transparentes, resultados de elite</h2>
+      <p class="section-sub" data-i18n="pricing.sub">Escolha o nível certo para o seu negócio. Sem surpresas, sem letras pequenas.</p>
+    </div>
+    <div class="grid-pricing">
+      <article class="price-card">
+        <h3 data-i18n="pricing.p1.name">Landing Page</h3>
+        <p class="price-tag-sub" data-i18n="pricing.p1.tag">Página Única</p>
+        <div class="price-amount">199€</div>
+        <p class="price-desc" data-i18n="pricing.p1.desc">Website moderno de página única. Ideal para campanhas e lançamentos rápidos.</p>
+        <a href="#contact" class="btn btn-ghost btn-block" data-i18n="pricing.cta">Começar</a>
+      </article>
+      <article class="price-card">
+        <h3 data-i18n="pricing.p2.name">Website Institucional</h3>
+        <p class="price-tag-sub" data-i18n="pricing.p2.tag">Até 5 Páginas</p>
+        <div class="price-amount">399€</div>
+        <p class="price-desc" data-i18n="pricing.p2.desc">Estrutura corporativa completa para apresentar a empresa e os serviços.</p>
+        <a href="#contact" class="btn btn-ghost btn-block" data-i18n="pricing.cta">Começar</a>
+      </article>
+      <article class="price-card price-card-featured">
+        <div class="featured-tag" data-i18n="pricing.p3.badge">Mais Popular</div>
+        <h3 data-i18n="pricing.p3.name">Website Premium Custom</h3>
+        <p class="price-tag-sub" data-i18n="pricing.p3.tag">Design Exclusivo</p>
+        <div class="price-amount">799€</div>
+        <p class="price-desc" data-i18n="pricing.p3.desc">Plataforma web de grande escala com design exclusivo, performance máxima e total liberdade criativa.</p>
+        <a href="#contact" class="btn btn-neon btn-block" data-i18n="pricing.cta">Começar</a>
+      </article>
+      <article class="price-card">
+        <h3 data-i18n="pricing.p4.name">Manutenção Mensal</h3>
+        <p class="price-tag-sub" data-i18n="pricing.p4.tag">Opcional</p>
+        <div class="price-amount" data-i18n="pricing.p4.price">Sob Consulta</div>
+        <p class="price-desc" data-i18n="pricing.p4.desc">Suporte técnico contínuo, atualizações de segurança e otimização de velocidade.</p>
+        <a href="#contact" class="btn btn-ghost btn-block" data-i18n="pricing.cta">Começar</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER CTA -->
+  <section class="section contact" id="contact">
+    <div class="contact-block">
+      <span class="eyebrow" data-i18n="contact.eyebrow">// VAMOS CONSTRUIR O FUTURO</span>
+      <h2 data-i18n="contact.title">Pronto para elevar o seu negócio?</h2>
+      <p class="section-sub" data-i18n="contact.sub">Fale connosco agora mesmo pelo WhatsApp e receba uma proposta em minutos.</p>
+      <a href="https://wa.me/351937260282" target="_blank" rel="noopener" class="whatsapp-block">
+        <span class="wa-icon">
+          <svg viewBox="0 0 32 32" width="36" height="36" fill="currentColor"><path d="M16.004 3C9.373 3 4 8.373 4 15.004c0 2.65.868 5.1 2.338 7.084L4.6 28.999l7.093-1.866a11.94 11.94 0 0 0 4.31.8h.001c6.63 0 12.004-5.373 12.004-12.004C28.008 8.373 22.635 3 16.004 3zm7.02 17.31c-.297.836-1.72 1.598-2.372 1.7-.606.093-1.376.132-2.222-.14-.512-.163-1.17-.38-2.017-.744-3.552-1.533-5.87-5.106-6.05-5.343-.178-.238-1.448-1.926-1.448-3.676s.917-2.61 1.242-2.967c.326-.357.71-.446.947-.446.238 0 .475.002.682.013.219.011.512-.083.802.611.297.71.01 2.383.98 3.35.97.968.968 1.615 1.94 2.583.972.968 1.612 1.94 2.582 1.94.35 0 .38-.001.712-.001.331 0 .535.014.712.014" fill-rule="evenodd"/></svg>
+        </span>
+        <span class="wa-text">
+          <strong data-i18n="contact.wa.title">Fale connosco no WhatsApp</strong>
+          <span data-i18n="contact.wa.sub">Resposta rápida garantida</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT -->
+  <section class="seo-section" id="about">
+    <div class="seo-inner">
+      <h2 class="seo-title" data-i18n="seo.title">Presença Digital Completa para o Mercado Português</h2>
+      <p class="seo-sub" data-i18n="seo.sub">Soluções de Web Design exclusivas para empresas que querem liderar.</p>
+      <div class="seo-body">
+        <p data-i18n="seo.p1">Na Stellar Web Studio, desenvolvemos soluções digitais sob medida para o tecido empresarial em Portugal. Criamos desde landing pages de alta conversão até websites corporativos completos para stands de automóveis, restaurantes gourmet, clínicas médicas, escritórios de advogados, clínicas dentárias e eletricistas licenciados.</p>
+        <p data-i18n="seo.p2">Garantimos total otimização móvel (Mobile-First), máxima velocidade de carregamento e total conformidade com o RGPD (GDPR). Eleve o nível do seu negócio em Lisboa, Porto, Braga ou no Algarve com um website que converte visitantes em clientes reais.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a href="https://wa.me/351937260282" target="_blank" rel="noopener" class="floating-wa" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.004 3C9.373 3 4 8.373 4 15.004c0 2.65.868 5.1 2.338 7.084L4.6 28.999l7.093-1.866a11.94 11.94 0 0 0 4.31.8h.001c6.63 0 12.004-5.373 12.004-12.004C28.008 8.373 22.635 3 16.004 3zm7.02 17.31c-.297.836-1.72 1.598-2.372 1.7-.606.093-1.376.132-2.222-.14-.512-.163-1.17-.38-2.017-.744-3.552-1.533-5.87-5.106-6.05-5.343-.178-.238-1.448-1.926-1.448-3.676s.917-2.61 1.242-2.967c.326-.357.71-.446.947-.446.238 0 .475.002.682.013.219.011.512-.083.802.611.297.71.01 2.383.98 3.35.97.968.968 1.615 1.94 2.583.972.968 1.612 1.94 2.582 1.94.35 0 .38-.001.712-.001.331 0 .535.014.712.014" fill-rule="evenodd"/></svg>
+</a>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="brand footer-brand">STELLAR WEB STUDIO<span class="brand-dot">.</span></span>
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 Stellar Web Studio. Operado por Vadym Minzilevskyi, Trabalhador Independente. NIF: 310300118.</span>
+    <a href="#" class="footer-link" id="privacyLink" data-i18n="footer.privacy">Política de Privacidade</a>
+  </div>
+  <div class="footer-legal">
+    <a href="https://livroreclamacoes.pt" target="_blank" rel="noopener" class="footer-badge">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v15H6.5A2.5 2.5 0 0 0 4 19.5z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v5H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M8.5 7h7M8.5 11h4.5"/></svg>
+      <span data-i18n="footer.complaints">Livro de Reclamações Eletrónico</span>
+    </a>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="privacyModal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+    <button class="modal-close" id="privacyModalClose" data-i18n-label="privacy.close" aria-label="Fechar">&times;</button>
+    <h3 id="privacyModalTitle" data-i18n="privacy.title">Política de Privacidade e Proteção de Dados (RGPD)</h3>
+    <div class="modal-body" data-i18n-html="privacy.content"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="privacyModalDismiss" data-i18n="privacy.close">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="/i18n.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>
