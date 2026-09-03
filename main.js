@@ -112,7 +112,7 @@
   var auditRetry = document.getElementById("auditRetry");
   var auditAgain = document.getElementById("auditAgain");
   var RING = 2 * Math.PI * 42;
-  var PAGESPEED_API_KEY = "";
+  var PAGESPEED_API_KEY = "AIzaSyCNKTS6UdIsBuq-yrJjQ9HxyfTK75JpVa0";
   var auditTick = null;
   var auditAbort = null;
 
@@ -232,8 +232,8 @@
       + "&category=accessibility"
       + "&category=best-practices"
       + "&category=seo"
-      + "&locale=pt-PT";
-    if (PAGESPEED_API_KEY) endpoint += "&key=" + encodeURIComponent(PAGESPEED_API_KEY);
+      + "&locale=pt-PT"
+      + "&key=" + encodeURIComponent(PAGESPEED_API_KEY);
 
     auditAbort = typeof AbortController !== "undefined" ? new AbortController() : null;
     return fetch(endpoint, {
@@ -243,11 +243,12 @@
       return res.text().then(function (text) {
         var data = {};
         try { data = text ? JSON.parse(text) : {}; } catch (err) {
-          throw new Error(t("audit.fail"));
+          throw new Error(t("audit.busy"));
         }
         var status = (data.error && data.error.code) || res.status;
-        if (status === 429) throw new Error(t("audit.quota"));
-        if (!res.ok || data.error) throw new Error(t("audit.fail"));
+        if (status === 429 || status >= 500 || !res.ok || data.error) {
+          throw new Error(t("audit.busy"));
+        }
         return data;
       });
     });
@@ -255,7 +256,7 @@
 
   function renderAudit(targetUrl, data) {
     var cats = data && data.lighthouseResult && data.lighthouseResult.categories;
-    if (!cats) throw new Error(t("audit.fail"));
+        if (!cats) throw new Error(t("audit.busy"));
 
     function toScore(cat) {
       var raw = cats[cat] && typeof cats[cat].score === "number" ? cats[cat].score : 0;
@@ -319,7 +320,7 @@
         }, 380);
       }).catch(function (err) {
         if (err && err.name === "AbortError") return;
-        showAuditError((err && err.message) || t("audit.fail"));
+        showAuditError((err && err.message) || t("audit.busy"));
       });
     });
 
