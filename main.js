@@ -98,44 +98,232 @@
   }
 
   var auditForm = document.getElementById("auditForm");
+  var auditInput = document.getElementById("auditUrl");
+  var auditSubmit = document.getElementById("auditSubmit");
   var auditLoader = document.getElementById("auditLoader");
   var auditResults = document.getElementById("auditResults");
-  var auditLog = document.getElementById("auditLog");
-  var auditTimers = [];
+  var auditError = document.getElementById("auditError");
+  var auditErrorText = document.getElementById("auditErrorText");
+  var auditInlineError = document.getElementById("auditInlineError");
+  var auditPct = document.getElementById("auditPct");
+  var auditPctFill = document.getElementById("auditPctFill");
+  var auditTested = document.getElementById("auditTested");
+  var auditWa = document.getElementById("auditWa");
+  var auditRetry = document.getElementById("auditRetry");
+  var auditAgain = document.getElementById("auditAgain");
+  var RING = 2 * Math.PI * 42;
+  var PAGESPEED_API_KEY = "";
+  var auditTick = null;
+  var auditAbort = null;
 
   function currentDict() {
     var lang = document.documentElement.getAttribute("lang") || "pt";
     return I18N[lang] || I18N.pt;
   }
 
-  function clearAuditTimers() {
-    auditTimers.forEach(function (id) { clearTimeout(id); });
-    auditTimers = [];
+  function t(key) {
+    return currentDict()[key] || I18N.pt[key] || "";
   }
 
-  function setAuditLog(key) {
-    var dict = currentDict();
-    if (auditLog && dict[key]) {
-      auditLog.setAttribute("data-i18n", key);
-      auditLog.textContent = dict[key];
+  function normalizeAuditUrl(raw) {
+    var value = (raw || "").trim();
+    if (!value) return null;
+    if (!/^https?:\/\//i.test(value)) value = "https://" + value;
+    try {
+      var parsed = new URL(value);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+      if (!parsed.hostname || parsed.hostname.indexOf(".") === -1) return null;
+      return parsed.toString();
+    } catch (err) {
+      return null;
     }
   }
 
-  if (auditForm && auditLoader && auditResults && auditLog) {
+  function setAuditView(view) {
+    if (auditForm) auditForm.hidden = view !== "form";
+    if (auditLoader) auditLoader.hidden = view !== "loading";
+    if (auditResults) auditResults.hidden = view !== "results";
+    if (auditError) auditError.hidden = view !== "error";
+  }
+
+  function setPct(n) {
+    var value = Math.max(0, Math.min(100, Math.round(n)));
+    if (auditPct) auditPct.textContent = value + "%";
+    if (auditPctFill) auditPctFill.style.width = value + "%";
+  }
+
+  function stopPct() {
+    if (auditTick) {
+      clearInterval(auditTick);
+      auditTick = null;
+    }
+  }
+
+  function startPct() {
+    stopPct();
+    var current = 0;
+    setPct(0);
+    auditTick = setInterval(function () {
+      current = Math.min(92, current + (current < 40 ? 3.2 : current < 75 ? 1.4 : 0.45));
+      setPct(current);
+    }, 220);
+  }
+
+  function scoreTone(score) {
+    if (score >= 90) return "is-high";
+    if (score >= 50) return "is-mid";
+    return "is-low";
+  }
+
+  function setGauge(cat, score) {
+    var card = document.querySelector('.audit-gauge[data-cat="' + cat + '"]');
+    if (!card) return;
+    card.classList.remove("is-high", "is-mid", "is-low");
+    card.classList.add(scoreTone(score));
+    var ring = card.querySelector(".audit-ring");
+    var label = card.querySelector(".audit-score");
+    if (label) label.textContent = String(score);
+    if (ring) {
+      ring.style.strokeDasharray = String(RING);
+      ring.style.strokeDashoffset = String(RING - (RING * score) / 100);
+    }
+  }
+
+  function resetGauges() {
+    ["performance", "accessibility", "best-practices", "seo"].forEach(function (cat) {
+      var card = document.querySelector('.audit-gauge[data-cat="' + cat + '"]');
+      if (!card) return;
+      card.classList.remove("is-high", "is-mid", "is-low");
+      var ring = card.querySelector(".audit-ring");
+      var label = card.querySelector(".audit-score");
+      if (label) label.textContent = "—";
+      if (ring) ring.style.strokeDashoffset = String(RING);
+    });
+  }
+
+  function showAuditError(message) {
+    stopPct();
+    if (auditErrorText) auditErrorText.textContent = message;
+    setAuditView("error");
+    if (auditSubmit) auditSubmit.disabled = false;
+  }
+
+  function resetAuditForm() {
+    if (auditAbort) {
+      try { auditAbort.abort(); } catch (err) {}
+      auditAbort = null;
+    }
+    stopPct();
+    if (auditInlineError) {
+      auditInlineError.hidden = true;
+      auditInlineError.textContent = "";
+    }
+    resetGauges();
+    setAuditView("form");
+    if (auditSubmit) auditSubmit.disabled = false;
+    if (auditInput) auditInput.focus();
+  }
+
+  function runPagespeed(targetUrl) {
+    var endpoint = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+      + "?url=" + encodeURIComponent(targetUrl)
+      + "&strategy=mobile"
+      + "&category=performance"
+      + "&category=accessibility"
+      + "&category=best-practices"
+      + "&category=seo"
+      + "&locale=pt-PT";
+    if (PAGESPEED_API_KEY) endpoint += "&key=" + encodeURIComponent(PAGESPEED_API_KEY);
+
+    auditAbort = typeof AbortController !== "undefined" ? new AbortController() : null;
+    return fetch(endpoint, {
+      method: "GET",
+      signal: auditAbort ? auditAbort.signal : undefined
+    }).then(function (res) {
+      return res.text().then(function (text) {
+        var data = {};
+        try { data = text ? JSON.parse(text) : {}; } catch (err) {
+          throw new Error(t("audit.fail"));
+        }
+        var status = (data.error && data.error.code) || res.status;
+        if (status === 429) throw new Error(t("audit.quota"));
+        if (!res.ok || data.error) throw new Error(t("audit.fail"));
+        return data;
+      });
+    });
+  }
+
+  function renderAudit(targetUrl, data) {
+    var cats = data && data.lighthouseResult && data.lighthouseResult.categories;
+    if (!cats) throw new Error(t("audit.fail"));
+
+    function toScore(cat) {
+      var raw = cats[cat] && typeof cats[cat].score === "number" ? cats[cat].score : 0;
+      return Math.round(raw * 100);
+    }
+
+    var scores = {
+      performance: toScore("performance"),
+      accessibility: toScore("accessibility"),
+      "best-practices": toScore("best-practices"),
+      seo: toScore("seo")
+    };
+
+    setGauge("performance", scores.performance);
+    setGauge("accessibility", scores.accessibility);
+    setGauge("best-practices", scores["best-practices"]);
+    setGauge("seo", scores.seo);
+
+    if (auditTested) auditTested.textContent = t("audit.tested") + " " + targetUrl;
+
+    if (auditWa) {
+      var msg = "Olá, quero o plano de correção técnica grátis.\n"
+        + "URL: " + targetUrl + "\n"
+        + "Desempenho: " + scores.performance
+        + " | Acessibilidade: " + scores.accessibility
+        + " | Boas Práticas: " + scores["best-practices"]
+        + " | SEO: " + scores.seo;
+      auditWa.href = "https://wa.me/351937260282?text=" + encodeURIComponent(msg);
+    }
+  }
+
+  if (auditForm && auditInput && auditLoader && auditResults) {
     auditForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      clearAuditTimers();
-      auditForm.hidden = true;
-      auditResults.hidden = true;
-      auditLoader.hidden = false;
-      setAuditLog("audit.log1");
+      if (auditInlineError) {
+        auditInlineError.hidden = true;
+        auditInlineError.textContent = "";
+      }
 
-      auditTimers.push(setTimeout(function () { setAuditLog("audit.log2"); }, 1500));
-      auditTimers.push(setTimeout(function () { setAuditLog("audit.log3"); }, 3000));
-      auditTimers.push(setTimeout(function () {
-        auditLoader.hidden = true;
-        auditResults.hidden = false;
-      }, 4500));
+      var targetUrl = normalizeAuditUrl(auditInput.value);
+      if (!targetUrl) {
+        if (auditInlineError) {
+          auditInlineError.textContent = t("audit.invalid");
+          auditInlineError.hidden = false;
+        }
+        auditInput.focus();
+        return;
+      }
+
+      if (auditSubmit) auditSubmit.disabled = true;
+      setAuditView("loading");
+      startPct();
+
+      runPagespeed(targetUrl).then(function (data) {
+        stopPct();
+        setPct(100);
+        renderAudit(targetUrl, data);
+        setTimeout(function () {
+          setAuditView("results");
+          if (auditSubmit) auditSubmit.disabled = false;
+        }, 380);
+      }).catch(function (err) {
+        if (err && err.name === "AbortError") return;
+        showAuditError((err && err.message) || t("audit.fail"));
+      });
     });
+
+    if (auditRetry) auditRetry.addEventListener("click", resetAuditForm);
+    if (auditAgain) auditAgain.addEventListener("click", resetAuditForm);
   }
 })();

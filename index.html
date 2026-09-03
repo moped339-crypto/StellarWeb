@@ -239,36 +239,79 @@
   <section class="section audit" id="audit">
     <div class="audit-block">
       <div class="section-head audit-head">
-        <span class="eyebrow" data-i18n="audit.eyebrow">// DIAGNÓSTICO DIGITAL</span>
-        <h2 data-i18n="audit.title">Verifique o seu website</h2>
-        <p class="section-sub" data-i18n="audit.sub">Descubra os pontos críticos do seu website atual</p>
+        <span class="eyebrow" data-i18n="audit.eyebrow">// DIAGNÓSTICO DIGITAL REAL</span>
+        <h2 data-i18n="audit.title">Auditoria Google Lighthouse</h2>
+        <p class="section-sub" data-i18n="audit.sub">Avalie o seu website atual com as ferramentas oficiais da Google.</p>
       </div>
 
       <form class="audit-form" id="auditForm">
         <label class="sr-only" for="auditUrl" data-i18n="audit.label">URL do website</label>
-        <input id="auditUrl" class="audit-input" type="text" inputmode="url" autocomplete="url" placeholder="Ex: www.asuaempresa.pt" data-i18n-placeholder="audit.placeholder" />
-        <button type="submit" class="btn btn-gold" id="auditSubmit" data-i18n="audit.cta">Analisar Website ↗</button>
+        <input id="auditUrl" class="audit-input" type="text" inputmode="url" autocomplete="url" placeholder="Ex: https://asuaempresa.pt" data-i18n-placeholder="audit.placeholder" />
+        <button type="submit" class="btn btn-gold" id="auditSubmit" data-i18n="audit.cta">Executar Auditoria Google ↗</button>
       </form>
 
+      <p class="audit-inline-error" id="auditInlineError" hidden></p>
+
       <div class="audit-loader" id="auditLoader" hidden>
-        <div class="audit-spinner" aria-hidden="true"></div>
-        <p class="audit-log" id="auditLog" data-i18n="audit.log1">🔍 A analisar a velocidade de carregamento...</p>
+        <div class="audit-pct" id="auditPct">0%</div>
+        <div class="audit-pct-track" aria-hidden="true"><span class="audit-pct-fill" id="auditPctFill"></span></div>
+        <p class="audit-log" id="auditLog" data-i18n="audit.loading">A invocar servidores da Google Lighthouse...</p>
+      </div>
+
+      <div class="audit-error" id="auditError" hidden>
+        <p id="auditErrorText"></p>
+        <button type="button" class="btn btn-ghost" id="auditRetry" data-i18n="audit.retry">Tentar novamente</button>
       </div>
 
       <div class="audit-results" id="auditResults" hidden>
-        <article class="audit-metric">
-          <span class="audit-metric-label" data-i18n="audit.m1.label">Velocidade</span>
-          <span class="audit-badge" data-i18n="audit.m1.value">Crítica (Carregamento em 4.2s)</span>
-        </article>
-        <article class="audit-metric">
-          <span class="audit-metric-label" data-i18n="audit.m2.label">Otimização Móvel</span>
-          <span class="audit-badge" data-i18n="audit.m2.value">Incompleta (Erros de quebra de layout)</span>
-        </article>
-        <article class="audit-metric">
-          <span class="audit-metric-label" data-i18n="audit.m3.label">Segurança &amp; RGPD</span>
-          <span class="audit-badge" data-i18n="audit.m3.value">Risco Alto (Falta de conformidade com as diretivas europeias)</span>
-        </article>
-        <a class="btn btn-gold btn-lg audit-wa" href="https://wa.me/351937260282?text=Ol%C3%A1%2C%20quero%20o%20relat%C3%B3rio%20corretivo%20gr%C3%A1tis%20do%20meu%20website." target="_blank" rel="noopener" data-i18n="audit.wa">Receber Relatório Corretivo Grátis</a>
+        <p class="audit-tested" id="auditTested"></p>
+        <div class="audit-gauges">
+          <article class="audit-gauge" data-cat="performance">
+            <div class="audit-ring-wrap">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
+                <circle class="audit-ring" cx="50" cy="50" r="42"></circle>
+              </svg>
+              <span class="audit-score" id="auditScorePerformance">—</span>
+            </div>
+            <span class="audit-gauge-label" data-i18n="audit.score.perf">Desempenho</span>
+          </article>
+          <article class="audit-gauge" data-cat="accessibility">
+            <div class="audit-ring-wrap">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
+                <circle class="audit-ring" cx="50" cy="50" r="42"></circle>
+              </svg>
+              <span class="audit-score" id="auditScoreAccessibility">—</span>
+            </div>
+            <span class="audit-gauge-label" data-i18n="audit.score.a11y">Acessibilidade</span>
+          </article>
+          <article class="audit-gauge" data-cat="best-practices">
+            <div class="audit-ring-wrap">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
+                <circle class="audit-ring" cx="50" cy="50" r="42"></circle>
+              </svg>
+              <span class="audit-score" id="auditScoreBestPractices">—</span>
+            </div>
+            <span class="audit-gauge-label" data-i18n="audit.score.bp">Boas Práticas</span>
+          </article>
+          <article class="audit-gauge" data-cat="seo">
+            <div class="audit-ring-wrap">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
+                <circle class="audit-ring" cx="50" cy="50" r="42"></circle>
+              </svg>
+              <span class="audit-score" id="auditScoreSeo">—</span>
+            </div>
+            <span class="audit-gauge-label" data-i18n="audit.score.seo">SEO</span>
+          </article>
+        </div>
+        <div class="audit-cta-box">
+          <p data-i18n="audit.insight">A Google identificou oportunidades de melhoria no seu código. Para receber uma análise interpretada por um especialista e o plano de correção técnica, fale connosco.</p>
+          <a class="btn btn-gold btn-lg audit-wa" id="auditWa" href="https://wa.me/351937260282?text=Ol%C3%A1%2C%20quero%20o%20plano%20de%20corre%C3%A7%C3%A3o%20t%C3%A9cnica%20gr%C3%A1tis." target="_blank" rel="noopener" data-i18n="audit.wa">Receber Plano de Correção Técnica Grátis</a>
+        </div>
+        <button type="button" class="btn btn-ghost audit-again" id="auditAgain" data-i18n="audit.again">Nova auditoria</button>
       </div>
     </div>
   </section>
