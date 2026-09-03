@@ -14,6 +14,10 @@
       var key = el.getAttribute("data-i18n-html");
       if (dict[key]) el.innerHTML = dict[key];
     });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-placeholder");
+      if (dict[key]) el.setAttribute("placeholder", dict[key]);
+    });
     document.querySelectorAll("[data-i18n-label]").forEach(function (el) {
       var key = el.getAttribute("data-i18n-label");
       if (dict[key]) el.setAttribute("aria-label", dict[key]);
@@ -90,6 +94,48 @@
           first.focus();
         }
       }
+    });
+  }
+
+  var auditForm = document.getElementById("auditForm");
+  var auditLoader = document.getElementById("auditLoader");
+  var auditResults = document.getElementById("auditResults");
+  var auditLog = document.getElementById("auditLog");
+  var auditTimers = [];
+
+  function currentDict() {
+    var lang = document.documentElement.getAttribute("lang") || "pt";
+    return I18N[lang] || I18N.pt;
+  }
+
+  function clearAuditTimers() {
+    auditTimers.forEach(function (id) { clearTimeout(id); });
+    auditTimers = [];
+  }
+
+  function setAuditLog(key) {
+    var dict = currentDict();
+    if (auditLog && dict[key]) {
+      auditLog.setAttribute("data-i18n", key);
+      auditLog.textContent = dict[key];
+    }
+  }
+
+  if (auditForm && auditLoader && auditResults && auditLog) {
+    auditForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      clearAuditTimers();
+      auditForm.hidden = true;
+      auditResults.hidden = true;
+      auditLoader.hidden = false;
+      setAuditLog("audit.log1");
+
+      auditTimers.push(setTimeout(function () { setAuditLog("audit.log2"); }, 1500));
+      auditTimers.push(setTimeout(function () { setAuditLog("audit.log3"); }, 3000));
+      auditTimers.push(setTimeout(function () {
+        auditLoader.hidden = true;
+        auditResults.hidden = false;
+      }, 4500));
     });
   }
 })();
