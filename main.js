@@ -112,7 +112,6 @@
   var auditRetry = document.getElementById("auditRetry");
   var auditAgain = document.getElementById("auditAgain");
   var RING = 2 * Math.PI * 42;
-  var PAGESPEED_API_KEY = "AIzaSyCNKTS6UdIsBuq-yrJjQ9HxyfTK75JpVa0";
   var auditTick = null;
   var auditAbort = null;
 
@@ -225,15 +224,7 @@
   }
 
   function runPagespeed(targetUrl) {
-    var endpoint = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-      + "?url=" + encodeURIComponent(targetUrl)
-      + "&strategy=mobile"
-      + "&category=performance"
-      + "&category=accessibility"
-      + "&category=best-practices"
-      + "&category=seo"
-      + "&locale=pt-PT"
-      + "&key=" + encodeURIComponent(PAGESPEED_API_KEY);
+    var endpoint = "/api/lighthouse?url=" + encodeURIComponent(targetUrl);
 
     auditAbort = typeof AbortController !== "undefined" ? new AbortController() : null;
     return fetch(endpoint, {

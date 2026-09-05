@@ -1,2 +1,13 @@
 [build]
   publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+[functions.lighthouse]
+  timeout = 26
+
+[[redirects]]
+  from = "/api/lighthouse"
+  to = "/.netlify/functions/lighthouse"
+  status = 200
