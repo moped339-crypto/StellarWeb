@@ -238,7 +238,10 @@
         }
         var status = (data.error && data.error.code) || res.status;
         if (status === 429 || status >= 500 || !res.ok || data.error) {
-          throw new Error(t("audit.busy"));
+          var serverMessage = typeof data.error === "string"
+            ? data.error
+            : (data.error && data.error.message);
+          throw new Error(serverMessage || t("audit.busy"));
         }
         return data;
       });
