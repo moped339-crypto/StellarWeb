@@ -8,7 +8,9 @@
     var dict = I18N[lang] || I18N.pt;
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var key = el.getAttribute("data-i18n");
-      if (dict[key]) el.textContent = dict[key];
+      if (key && Object.prototype.hasOwnProperty.call(dict, key)) {
+        el.textContent = dict[key];
+      }
     });
     document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
       var key = el.getAttribute("data-i18n-html");
