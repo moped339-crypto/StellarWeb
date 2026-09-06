@@ -235,7 +235,7 @@
       <div class="audit-results" id="auditResults" hidden>
         <p class="audit-tested" id="auditTested"></p>
         <div class="audit-gauges">
-          <article class="audit-gauge" data-cat="performance">
+          <article class="audit-gauge" data-cat="performance" role="button" tabindex="0" aria-expanded="false" aria-controls="audit-panel-performance">
             <div class="audit-ring-wrap">
               <svg viewBox="0 0 100 100" aria-hidden="true">
                 <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
@@ -245,7 +245,7 @@
             </div>
             <span class="audit-gauge-label" data-i18n="audit.score.perf">Desempenho</span>
           </article>
-          <article class="audit-gauge" data-cat="accessibility">
+          <article class="audit-gauge" data-cat="accessibility" role="button" tabindex="0" aria-expanded="false" aria-controls="audit-panel-accessibility">
             <div class="audit-ring-wrap">
               <svg viewBox="0 0 100 100" aria-hidden="true">
                 <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
@@ -255,7 +255,7 @@
             </div>
             <span class="audit-gauge-label" data-i18n="audit.score.a11y">Acessibilidade</span>
           </article>
-          <article class="audit-gauge" data-cat="best-practices">
+          <article class="audit-gauge" data-cat="best-practices" role="button" tabindex="0" aria-expanded="false" aria-controls="audit-panel-best-practices">
             <div class="audit-ring-wrap">
               <svg viewBox="0 0 100 100" aria-hidden="true">
                 <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
@@ -265,7 +265,7 @@
             </div>
             <span class="audit-gauge-label" data-i18n="audit.score.bp">Boas Práticas</span>
           </article>
-          <article class="audit-gauge" data-cat="seo">
+          <article class="audit-gauge" data-cat="seo" role="button" tabindex="0" aria-expanded="false" aria-controls="audit-panel-seo">
             <div class="audit-ring-wrap">
               <svg viewBox="0 0 100 100" aria-hidden="true">
                 <circle class="audit-ring-bg" cx="50" cy="50" r="42"></circle>
@@ -275,6 +275,52 @@
             </div>
             <span class="audit-gauge-label" data-i18n="audit.score.seo">SEO</span>
           </article>
+        </div>
+        <div class="audit-accordions" id="auditAccordions">
+          <div class="audit-acc" data-cat="performance">
+            <button type="button" class="audit-acc-trigger" id="auditAccPerf" aria-expanded="false" aria-controls="audit-panel-performance">
+              <span data-i18n="audit.score.perf">Desempenho</span>
+              <span class="audit-acc-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="audit-acc-panel" id="audit-panel-performance" role="region" aria-labelledby="auditAccPerf">
+              <div class="audit-acc-panel-inner">
+                <p data-i18n="audit.explain.perf">O Desempenho mede a velocidade real da página no telemóvel. A Google avalia o tempo até o conteúdo principal aparecer, a estabilidade visual durante o carregamento e a rapidez da resposta ao toque. Uma pontuação baixa significa que os clientes abandonam o website antes de verem o seu serviço — e isso penaliza a pesquisa.</p>
+              </div>
+            </div>
+          </div>
+          <div class="audit-acc" data-cat="accessibility">
+            <button type="button" class="audit-acc-trigger" id="auditAccA11y" aria-expanded="false" aria-controls="audit-panel-accessibility">
+              <span data-i18n="audit.score.a11y">Acessibilidade</span>
+              <span class="audit-acc-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="audit-acc-panel" id="audit-panel-accessibility" role="region" aria-labelledby="auditAccA11y">
+              <div class="audit-acc-panel-inner">
+                <p data-i18n="audit.explain.a11y">A Acessibilidade verifica se todas as pessoas conseguem usar o website: contraste de cores, textos alternativos nas imagens, navegação por teclado e uma estrutura de títulos clara. Não é apenas conformidade — é garantir que nenhum cliente fica de fora, incluindo quem usa leitor de ecrã.</p>
+              </div>
+            </div>
+          </div>
+          <div class="audit-acc" data-cat="best-practices">
+            <button type="button" class="audit-acc-trigger" id="auditAccBp" aria-expanded="false" aria-controls="audit-panel-best-practices">
+              <span data-i18n="audit.score.bp">Boas Práticas</span>
+              <span class="audit-acc-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="audit-acc-panel" id="audit-panel-best-practices" role="region" aria-labelledby="auditAccBp">
+              <div class="audit-acc-panel-inner">
+                <p data-i18n="audit.explain.bp">As Boas Práticas avaliam a segurança HTTPS, bibliotecas desatualizadas, erros na consola e o uso correcto das APIs do browser. Uma pontuação alta sinaliza um website estável, fiável e preparado para o Chrome e o Safari — sem falhas que comprometam a confiança do cliente.</p>
+              </div>
+            </div>
+          </div>
+          <div class="audit-acc" data-cat="seo">
+            <button type="button" class="audit-acc-trigger" id="auditAccSeo" aria-expanded="false" aria-controls="audit-panel-seo">
+              <span data-i18n="audit.score.seo">SEO</span>
+              <span class="audit-acc-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="audit-acc-panel" id="audit-panel-seo" role="region" aria-labelledby="auditAccSeo">
+              <div class="audit-acc-panel-inner">
+                <p data-i18n="audit.explain.seo">O SEO mede se o Google consegue ler e compreender o website: títulos, meta descrições, indexação em telemóvel e ligações rastreáveis. Sem isto, o site existe — mas não aparece quando um cliente em Portugal pesquisa o seu serviço.</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="audit-cta-box">
           <p data-i18n="audit.insight">A Google identificou oportunidades de melhoria no seu código. Para receber uma análise interpretada por um especialista e o plano de correção técnica, fale connosco.</p>
@@ -364,8 +410,8 @@
 <footer class="footer">
   <div class="footer-inner">
     <span class="brand footer-brand">STELLAR WEB STUDIO<span class="brand-dot">.</span></span>
-    <span class="footer-copy" data-i18n="footer.copy">© 2026 Stellar Web Studio. Operado por Vadym Minzilevskyi, Trabalhador Independente. NIF: 310300118.</span>
-    <a href="#" class="footer-link" id="privacyLink" data-i18n="footer.privacy">Política de Privacidade</a>
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 Stellar Web Studio.</span>
+    <button type="button" class="footer-privacy" id="privacyLink" data-i18n="footer.privacy">Política de Privacidade</button>
   </div>
   <div class="footer-legal">
     <a href="https://livroreclamacoes.pt" target="_blank" rel="noopener" class="footer-badge">
@@ -379,6 +425,23 @@
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
     <button class="modal-close" id="privacyModalClose" data-i18n-label="privacy.close" aria-label="Fechar">&times;</button>
     <h3 id="privacyModalTitle" data-i18n="privacy.title">Política de Privacidade e Proteção de Dados (RGPD)</h3>
+    <div class="modal-legal">
+      <p class="modal-legal-kicker" data-i18n="privacy.legal.heading">Identificação legal</p>
+      <dl class="modal-legal-list">
+        <div>
+          <dt data-i18n="privacy.legal.name">Responsável</dt>
+          <dd>Vadym Minzilevskyi</dd>
+        </div>
+        <div>
+          <dt data-i18n="privacy.legal.status">Estatuto</dt>
+          <dd data-i18n="privacy.legal.role">Trabalhador Independente</dd>
+        </div>
+        <div>
+          <dt>NIF</dt>
+          <dd>310300118</dd>
+        </div>
+      </dl>
+    </div>
     <div class="modal-body" data-i18n-html="privacy.content"></div>
     <div class="modal-actions">
       <button type="button" class="btn btn-ghost" id="privacyModalDismiss" data-i18n="privacy.close">Fechar</button>

@@ -117,6 +117,45 @@
   var auditTick = null;
   var auditAbort = null;
 
+  function setAuditAccordion(cat) {
+    var current = cat
+      ? document.querySelector('.audit-acc[data-cat="' + cat + '"]')
+      : null;
+    var willOpen = !!(current && !current.classList.contains("is-open"));
+    document.querySelectorAll(".audit-acc").forEach(function (item) {
+      var open = willOpen && item.getAttribute("data-cat") === cat;
+      item.classList.toggle("is-open", open);
+      var btn = item.querySelector(".audit-acc-trigger");
+      if (btn) btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.querySelectorAll(".audit-gauge").forEach(function (gauge) {
+      var open = willOpen && gauge.getAttribute("data-cat") === cat;
+      gauge.classList.toggle("is-open", open);
+      gauge.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    if (willOpen && current && typeof current.scrollIntoView === "function") {
+      current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+
+  document.querySelectorAll(".audit-gauge").forEach(function (gauge) {
+    gauge.addEventListener("click", function () {
+      setAuditAccordion(gauge.getAttribute("data-cat"));
+    });
+    gauge.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setAuditAccordion(gauge.getAttribute("data-cat"));
+      }
+    });
+  });
+  document.querySelectorAll(".audit-acc-trigger").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var item = btn.closest(".audit-acc");
+      if (item) setAuditAccordion(item.getAttribute("data-cat"));
+    });
+  });
+
   function currentDict() {
     var lang = document.documentElement.getAttribute("lang") || "pt";
     return I18N[lang] || I18N.pt;
@@ -220,6 +259,7 @@
       auditInlineError.textContent = "";
     }
     resetGauges();
+    setAuditAccordion(null);
     setAuditView("form");
     if (auditSubmit) auditSubmit.disabled = false;
     if (auditInput) auditInput.focus();
