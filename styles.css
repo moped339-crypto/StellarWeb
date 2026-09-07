@@ -452,6 +452,7 @@ main, header, footer{position:relative; z-index:1;}
   .ecg-path{animation:none; stroke-dasharray:none;}
   .sofia-typing span{animation:none;}
   .sofia-mw-spin, .sofia-mw-specks{animation:none;}
+  .sofia-mw-spin{transform:scale(1.45);}
   .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb,
   .ring-debris, .ring-dash, .sky-map{animation:none;}
   .sky-map{transform:translate3d(0,0,0); will-change:auto;}
@@ -901,11 +902,11 @@ main, header, footer{position:relative; z-index:1;}
 
 /* SOFIA CHAT WIDGET */
 .sofia-widget{
-  position:fixed; right:24px; bottom:100px; z-index:70;
+  position:fixed; right:24px; bottom:96px; z-index:70;
   display:flex; flex-direction:column; align-items:flex-end; gap:12px;
 }
 .sofia-bubble{
-  width:92px; height:92px;
+  width:64px; height:64px;
   border:none; border-radius:0;
   background:transparent;
   color:#031510;
@@ -917,7 +918,7 @@ main, header, footer{position:relative; z-index:1;}
   padding:0;
 }
 .sofia-planet{
-  position:absolute; inset:-22%;
+  position:absolute; inset:-6%;
   display:flex; align-items:center; justify-content:center;
   overflow:visible;
 }
@@ -925,11 +926,12 @@ main, header, footer{position:relative; z-index:1;}
   width:100%; height:100%;
   object-fit:cover;
   pointer-events:none;
-  mix-blend-mode:screen;
   display:block;
+  mix-blend-mode:screen;
+  filter:contrast(2.2) brightness(1.28) saturate(1.2);
 }
 .sofia-bubble:hover .sofia-mw-img{
-  filter:brightness(1.12) saturate(1.2);
+  filter:contrast(2.2) brightness(1.38) saturate(1.3);
 }
 .sofia-mw-spin{
   transform-origin:center;
@@ -939,17 +941,18 @@ main, header, footer{position:relative; z-index:1;}
   position:absolute; z-index:2;
   font-family:var(--font);
   font-weight:800;
-  font-size:0.72rem;
+  font-size:0.62rem;
   letter-spacing:0.08em;
   color:#031510;
   line-height:1;
   pointer-events:none;
   text-shadow:
     0 0 6px rgba(247,255,251,0.95),
-    0 0 14px rgba(0,255,194,0.85);
+    0 0 12px rgba(0,255,194,0.85);
 }
 @keyframes sofia-galaxy-spin{
-  to{transform:rotate(360deg);}
+  from{transform:scale(1.45) rotate(0deg);}
+  to{transform:scale(1.45) rotate(360deg);}
 }
 @keyframes sofia-star-twinkle{
   0%,100%{opacity:0.55;}
@@ -1412,9 +1415,9 @@ main, header, footer{position:relative; z-index:1;}
   .wa-text{text-align:center; align-items:center;}
   .footer-inner{flex-direction:column; text-align:center;}
   .floating-wa{width:54px; height:54px; bottom:18px; right:18px;}
-  .sofia-widget{right:18px; bottom:86px;}
+  .sofia-widget{right:18px; bottom:82px;}
   .sofia-bubble{
-    width:80px; height:80px;
+    width:56px; height:56px;
   }
   .modal-panel{padding:32px 22px; max-height:85vh;}
   .modal-legal{padding:14px 14px 12px;}
