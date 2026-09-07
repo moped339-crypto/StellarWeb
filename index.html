@@ -175,8 +175,13 @@
       <h2 data-i18n="portfolio.title">Projetos reais e conceitos de demonstração</h2>
       <p class="section-sub" data-i18n="portfolio.sub">Trabalhos reais da Stellar Web Studio e conceitos de demonstração de websites possíveis — os conceitos não são marcas reais nem websites de clientes.</p>
     </div>
-    <div class="grid-portfolio">
-      <a href="https://barbeirobeto.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card portfolio-card-live">
+    <div class="portfolio-tabs" role="tablist" data-i18n-label="portfolio.tabs.aria" aria-label="Filtro do portfólio">
+      <button type="button" class="portfolio-tab is-active" role="tab" id="portfolioTabLive" aria-selected="true" aria-controls="portfolioGrid" data-filter="live" data-i18n="portfolio.tab.live">Projetos Reais</button>
+      <button type="button" class="portfolio-tab" role="tab" id="portfolioTabDemo" aria-selected="false" aria-controls="portfolioGrid" data-filter="demo" data-i18n="portfolio.tab.demo">Conceitos Premium / Demo</button>
+    </div>
+    <div class="portfolio-clip" id="portfolioClip">
+      <div class="grid-portfolio" id="portfolioGrid">
+      <a href="https://barbeirobeto.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card portfolio-card-live" data-kind="live">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/barber-cover.webp" />
@@ -192,7 +197,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.live">Abrir Website</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://clinicamedica121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://clinicamedica121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/clinic-cover.webp" />
@@ -208,7 +213,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://acabamento121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://acabamento121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/construction-cover.webp" />
@@ -224,7 +229,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://advogada121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://advogada121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/law-cover.webp" />
@@ -240,7 +245,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://dentaria.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://dentaria.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/dental-cover.webp" />
@@ -256,7 +261,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://rentcar121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://rentcar121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/rental-cover.webp" />
@@ -272,7 +277,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="https://restaurants121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card">
+      <a href="https://restaurants121.netlify.app/" target="_blank" rel="noopener noreferrer" class="group card portfolio-card" data-kind="demo">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/restaurant-cover.webp" />
@@ -288,7 +293,7 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.demo">Abrir Demonstração</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
-      <a href="#top" class="group card portfolio-card portfolio-card-live">
+      <a href="#top" class="group card portfolio-card portfolio-card-live" data-kind="live">
         <div class="preview-stage" aria-hidden="true">
           <picture>
             <source media="(max-width: 767px)" type="image/webp" srcset="/images/portfolio/studio-cover.webp" />
@@ -304,7 +309,13 @@
           <span class="portfolio-cta"><span data-i18n="portfolio.tag.live">Abrir Website</span><span class="portfolio-cta-arrow" aria-hidden="true">↗</span></span>
         </div>
       </a>
+      </div>
     </div>
+    <button type="button" class="portfolio-more" id="portfolioMore" hidden aria-expanded="false" aria-controls="portfolioClip">
+      <span class="portfolio-more-more" data-i18n="portfolio.more">Ver mais projetos</span>
+      <span class="portfolio-more-less" data-i18n="portfolio.less">Ver menos projetos</span>
+      <span class="portfolio-more-arrow" aria-hidden="true">⬇</span>
+    </button>
   </section>
 
   <section class="section audit" id="audit">

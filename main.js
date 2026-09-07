@@ -489,4 +489,102 @@
         });
     });
   }
+
+  var portfolioGrid = document.getElementById("portfolioGrid");
+  var portfolioClip = document.getElementById("portfolioClip");
+  var portfolioTabs = document.querySelectorAll(".portfolio-tab");
+  var portfolioMore = document.getElementById("portfolioMore");
+  var portfolioFilter = "live";
+  var portfolioExpanded = false;
+  var portfolioMobile = window.matchMedia("(max-width: 767px)");
+  var PORTFOLIO_MOBILE_LIMIT = 2;
+
+  function setPortfolioCardAccess(card, limited) {
+    if (limited) {
+      card.setAttribute("aria-hidden", "true");
+      card.setAttribute("tabindex", "-1");
+      if ("inert" in card) card.inert = true;
+      return;
+    }
+    card.removeAttribute("aria-hidden");
+    card.removeAttribute("tabindex");
+    if ("inert" in card) card.inert = false;
+  }
+
+  function applyPortfolioClip(matching, mobile) {
+    if (!portfolioClip || !portfolioGrid) return;
+    var limited = mobile && !portfolioExpanded && matching.length > PORTFOLIO_MOBILE_LIMIT;
+    portfolioClip.classList.toggle("is-limited", limited);
+    if (!mobile) {
+      portfolioClip.style.maxHeight = "";
+      return;
+    }
+    if (!limited) {
+      portfolioClip.style.maxHeight = portfolioGrid.scrollHeight + "px";
+      return;
+    }
+    var lastVisible = matching[PORTFOLIO_MOBILE_LIMIT - 1];
+    var clipTop = portfolioClip.getBoundingClientRect().top;
+    var height = Math.ceil(lastVisible.getBoundingClientRect().bottom - clipTop);
+    portfolioClip.style.maxHeight = Math.max(height, 0) + "px";
+  }
+
+  function applyPortfolioView() {
+    if (!portfolioGrid) return;
+    var cards = portfolioGrid.querySelectorAll(".portfolio-card");
+    var matching = [];
+    var mobile = portfolioMobile.matches;
+    cards.forEach(function (card) {
+      var match = card.getAttribute("data-kind") === portfolioFilter;
+      card.classList.toggle("is-filtered-out", !match);
+      if (match) matching.push(card);
+      else setPortfolioCardAccess(card, false);
+    });
+    matching.forEach(function (card, index) {
+      var hide = mobile && !portfolioExpanded && index >= PORTFOLIO_MOBILE_LIMIT;
+      setPortfolioCardAccess(card, hide);
+    });
+    if (portfolioMore) {
+      var needMore = mobile && matching.length > PORTFOLIO_MOBILE_LIMIT;
+      portfolioMore.hidden = !needMore;
+      portfolioMore.classList.toggle("is-expanded", portfolioExpanded);
+      portfolioMore.setAttribute("aria-expanded", portfolioExpanded ? "true" : "false");
+    }
+    applyPortfolioClip(matching, mobile);
+  }
+
+  portfolioTabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      portfolioFilter = tab.getAttribute("data-filter") || "live";
+      portfolioExpanded = false;
+      portfolioTabs.forEach(function (btn) {
+        var on = btn === tab;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      applyPortfolioView();
+    });
+  });
+
+  if (portfolioMore) {
+    portfolioMore.addEventListener("click", function () {
+      portfolioExpanded = !portfolioExpanded;
+      applyPortfolioView();
+    });
+  }
+
+  if (portfolioMobile.addEventListener) {
+    portfolioMobile.addEventListener("change", applyPortfolioView);
+  } else if (portfolioMobile.addListener) {
+    portfolioMobile.addListener(applyPortfolioView);
+  }
+
+  window.addEventListener("resize", applyPortfolioView);
+  if (portfolioGrid) {
+    portfolioGrid.querySelectorAll("img").forEach(function (img) {
+      img.addEventListener("load", applyPortfolioView);
+    });
+  }
+
+  applyPortfolioView();
 })();
