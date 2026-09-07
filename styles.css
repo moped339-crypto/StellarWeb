@@ -180,13 +180,38 @@ main, header, footer{position:relative; z-index:1;}
 .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
 
 .hero-visual{display:flex; align-items:center; justify-content:center; position:relative;}
-.data-orb{width:100%; max-width:480px; height:auto; animation:float 6s ease-in-out infinite;}
-.ring{transform-origin:300px 300px; animation:spin 20s linear infinite;}
-.ring-1{animation-duration:18s;}
-.ring-2{animation-duration:26s; animation-direction:reverse;}
-.ring-3{animation-duration:22s;}
-@keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
-@keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);}}
+.data-orb{
+  width:100%; max-width:520px; height:auto; overflow:visible;
+  animation:neptune-float 11s ease-in-out infinite;
+}
+.neptune-glow,
+.neptune-clouds,
+.neptune-rings,
+.neptune-moon{
+  transform-box:view-box;
+  transform-origin:50% 50%;
+}
+.neptune-glow{animation:neptune-breathe 8s ease-in-out infinite;}
+.neptune-clouds{animation:neptune-spin 64s linear infinite;}
+.neptune-moon{animation:neptune-moon-orbit 28s linear infinite;}
+.star-twinkle{animation:star-twinkle 4.5s ease-in-out infinite;}
+.star-twinkle.s2{animation-duration:6.2s; animation-delay:-1.4s;}
+.star-twinkle.s3{animation-duration:5.1s; animation-delay:-2.8s;}
+@keyframes neptune-spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+@keyframes neptune-moon-orbit{from{transform:rotate(0deg);} to{transform:rotate(-360deg);}}
+@keyframes neptune-breathe{
+  0%,100%{opacity:0.85; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.04);}
+}
+@keyframes neptune-float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+@keyframes star-twinkle{
+  0%,100%{opacity:0.25;}
+  40%{opacity:0.85;}
+  70%{opacity:0.4;}
+}
 
 /* METRICS */
 .metrics{max-width:1200px; margin:0 auto; padding:0 24px 40px;}
@@ -401,6 +426,7 @@ main, header, footer{position:relative; z-index:1;}
   .ecg-path{animation:none; stroke-dasharray:none;}
   .sofia-typing span{animation:none;}
   .sofia-orbit, .sofia-globe{animation:none;}
+  .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb{animation:none;}
   .card::after,
   .audit-block::after,
   .audit-acc::after,
