@@ -3,8 +3,10 @@
   // Previous brand's key: keep reading it so visitors who already chose a
   // language before the rename don't get reset back to Portuguese.
   var LEGACY_STORAGE_KEY = "nexis-lang";
+  var currentLang = "pt";
 
   function applyLang(lang) {
+    currentLang = lang;
     var dict = I18N[lang] || I18N.pt;
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var key = el.getAttribute("data-i18n");
@@ -29,6 +31,9 @@
     });
     document.documentElement.setAttribute("lang", lang);
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    if (sofiaHistory && sofiaHistory.length <= 1) {
+      sofiaHistory = [{ role: "assistant", content: dict["chat.welcome"] || "" }];
+    }
   }
 
   document.querySelectorAll(".lang-btn").forEach(function (btn) {
@@ -365,5 +370,123 @@
 
     if (auditRetry) auditRetry.addEventListener("click", resetAuditForm);
     if (auditAgain) auditAgain.addEventListener("click", resetAuditForm);
+  }
+
+  var sofiaWidget = document.getElementById("sofiaWidget");
+  var sofiaToggle = document.getElementById("sofiaToggle");
+  var sofiaClose = document.getElementById("sofiaClose");
+  var sofiaPanel = document.getElementById("sofiaPanel");
+  var sofiaLog = document.getElementById("sofiaLog");
+  var sofiaForm = document.getElementById("sofiaForm");
+  var sofiaInput = document.getElementById("sofiaInput");
+  var sofiaBusy = false;
+  var sofiaHistory = [];
+
+  function sofiaEscape(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+      .replace(/\n/g, "<br>");
+  }
+
+  function sofiaSeedHistory() {
+    sofiaHistory = [{ role: "assistant", content: t("chat.welcome") }];
+  }
+
+  function sofiaAppend(role, text) {
+    var wrap = document.createElement("div");
+    wrap.className = "sofia-msg sofia-msg-" + (role === "user" ? "user" : "bot");
+    var p = document.createElement("p");
+    p.innerHTML = sofiaEscape(text);
+    wrap.appendChild(p);
+    sofiaLog.appendChild(wrap);
+    sofiaLog.scrollTop = sofiaLog.scrollHeight;
+    return wrap;
+  }
+
+  function sofiaSetOpen(open) {
+    if (!sofiaWidget || !sofiaPanel || !sofiaToggle) return;
+    sofiaWidget.classList.toggle("is-open", open);
+    sofiaPanel.hidden = !open;
+    sofiaToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && sofiaInput) sofiaInput.focus();
+  }
+
+  if (sofiaToggle && sofiaPanel && sofiaLog && sofiaForm && sofiaInput) {
+    sofiaSeedHistory();
+
+    sofiaToggle.addEventListener("click", function () {
+      sofiaSetOpen(sofiaPanel.hidden);
+    });
+    if (sofiaClose) {
+      sofiaClose.addEventListener("click", function () {
+        sofiaSetOpen(false);
+        sofiaToggle.focus();
+      });
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && sofiaWidget && sofiaWidget.classList.contains("is-open")) {
+        sofiaSetOpen(false);
+        sofiaToggle.focus();
+      }
+    });
+
+    sofiaForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (sofiaBusy) return;
+      var text = (sofiaInput.value || "").trim();
+      if (!text) return;
+
+      sofiaInput.value = "";
+      sofiaAppend("user", text);
+      sofiaHistory.push({ role: "user", content: text });
+      if (sofiaHistory.length > 12) sofiaHistory = sofiaHistory.slice(-12);
+
+      sofiaBusy = true;
+      sofiaInput.disabled = true;
+      var sendBtn = sofiaForm.querySelector(".sofia-send");
+      if (sendBtn) sendBtn.disabled = true;
+
+      var typing = document.createElement("div");
+      typing.className = "sofia-msg sofia-msg-bot";
+      typing.setAttribute("data-typing", "1");
+      typing.innerHTML = '<div class="sofia-typing" aria-label="' + sofiaEscape(t("chat.typing")) + '"><span></span><span></span><span></span></div>';
+      sofiaLog.appendChild(typing);
+      sofiaLog.scrollTop = sofiaLog.scrollHeight;
+
+      fetch("/.netlify/functions/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: sofiaHistory, lang: currentLang })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (typing.parentNode) typing.parentNode.removeChild(typing);
+          var reply = result.ok && result.data && result.data.reply
+            ? String(result.data.reply)
+            : t("chat.error");
+          sofiaAppend("bot", reply);
+          if (result.ok && result.data && result.data.reply) {
+            sofiaHistory.push({ role: "assistant", content: reply });
+          }
+        })
+        .catch(function () {
+          if (typing.parentNode) typing.parentNode.removeChild(typing);
+          sofiaAppend("bot", t("chat.error"));
+        })
+        .then(function () {
+          sofiaBusy = false;
+          sofiaInput.disabled = false;
+          if (sendBtn) sendBtn.disabled = false;
+          sofiaInput.focus();
+        });
+    });
   }
 })();

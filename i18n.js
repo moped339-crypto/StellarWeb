@@ -101,6 +101,15 @@ const I18N = {
     "contact.sub": "Fale connosco agora mesmo pelo WhatsApp e receba uma proposta em minutos.",
     "contact.wa.title": "Fale connosco no WhatsApp",
     "contact.wa.sub": "Resposta rápida garantida",
+    "chat.aria": "Abrir assistente Sofia",
+    "chat.close": "Fechar chat",
+    "chat.send": "Enviar",
+    "chat.name": "Sofia",
+    "chat.role": "Assistente virtual · Stellar Web Studio",
+    "chat.welcome": "Olá! Sou a Sofia, assistente virtual da Stellar Web Studio. Como posso ajudar a impulsionar o seu negócio hoje? 🚀",
+    "chat.placeholder": "Escreva a sua mensagem",
+    "chat.typing": "Sofia está a escrever…",
+    "chat.error": "Não foi possível obter resposta. Tente novamente ou fale connosco no WhatsApp.",
     "seo.title": "Presença Digital Completa para o Mercado Português",
     "seo.sub": "Soluções de Web Design exclusivas para empresas que querem liderar.",
     "seo.p1": "Na Stellar Web Studio, desenvolvemos soluções digitais sob medida para o tecido empresarial em Portugal. Criamos desde landing pages de alta conversão até websites corporativos completos para stands de automóveis, restaurantes gourmet, clínicas médicas, escritórios de advogados, clínicas dentárias e eletricistas licenciados.",
@@ -114,7 +123,7 @@ const I18N = {
     "privacy.legal.name": "Responsável",
     "privacy.legal.status": "Estatuto",
     "privacy.legal.role": "Trabalhador Independente",
-    "privacy.content": "<p>A Stellar Web Studio valoriza a privacidade dos seus utilizadores. Ao entrar em contacto connosco através do WhatsApp ou telefone, os seus dados (nome e número de telemóvel) são utilizados exclusivamente para responder ao seu pedido de orçamento e prestação de serviços. Não partilhamos os seus dados com terceiros.</p><p>Nos termos do RGPD, tem o direito de solicitar o acesso, retificação ou eliminação dos seus dados a qualquer momento, bastando enviar uma mensagem para o nosso contacto oficial.</p><p>Em caso de litígio de consumo, o consumidor pode recorrer à plataforma europeia de Resolução de Litígios em Linha (RLL). Plataforma disponível em <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>Este website não utiliza cookies de rastreamento nem scripts de publicidade ou de análise. A única informação guardada no seu dispositivo é a sua preferência de idioma.</p><p>Sem prejuízo dos direitos acima, pode apresentar reclamação junto da CNPD — Comissão Nacional de Proteção de Dados.</p>"
+    "privacy.content": "<p>A Stellar Web Studio valoriza a privacidade dos seus utilizadores. Ao entrar em contacto connosco através do WhatsApp ou telefone, os seus dados (nome e número de telemóvel) são utilizados exclusivamente para responder ao seu pedido de orçamento e prestação de serviços. Não partilhamos os seus dados com terceiros para fins de marketing.</p><p>Se utilizar a assistente virtual Sofia, as mensagens do chat são enviadas à OpenAI (subcontratante) apenas para gerar a resposta. Não envie dados sensíveis neste chat. Nome, e-mail ou WhatsApp que partilhar destinam-se a que o Vadym possa contactá-lo sobre o seu pedido.</p><p>Nos termos do RGPD, tem o direito de solicitar o acesso, retificação ou eliminação dos seus dados a qualquer momento, bastando enviar uma mensagem para o nosso contacto oficial.</p><p>Em caso de litígio de consumo, o consumidor pode recorrer à plataforma europeia de Resolução de Litígios em Linha (RLL). Plataforma disponível em <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>Este website não utiliza cookies de rastreamento nem scripts de publicidade ou de análise. A única informação guardada no seu dispositivo é a sua preferência de idioma.</p><p>Sem prejuízo dos direitos acima, pode apresentar reclamação junto da CNPD — Comissão Nacional de Proteção de Dados.</p>"
   },
   en: {
     "nav.cta": "Contact Us",
@@ -218,6 +227,15 @@ const I18N = {
     "contact.sub": "Message us right now on WhatsApp and get a proposal in minutes.",
     "contact.wa.title": "Chat with us on WhatsApp",
     "contact.wa.sub": "Fast response guaranteed",
+    "chat.aria": "Open Sofia assistant",
+    "chat.close": "Close chat",
+    "chat.send": "Send",
+    "chat.name": "Sofia",
+    "chat.role": "Virtual assistant · Stellar Web Studio",
+    "chat.welcome": "Hi! I’m Sofia, the virtual assistant at Stellar Web Studio. How can I help grow your business today? 🚀",
+    "chat.placeholder": "Type your message",
+    "chat.typing": "Sofia is typing…",
+    "chat.error": "Could not get a reply. Please try again or reach us on WhatsApp.",
     "seo.title": "A Complete Digital Presence for the Portuguese Market",
     "seo.sub": "Exclusive web design solutions for companies that intend to lead.",
     "seo.p1": "At Stellar Web Studio, we build tailor-made digital solutions for the Portuguese business landscape. We create everything from high-conversion landing pages to complete corporate websites for car dealerships, fine-dining restaurants, medical clinics, law firms, dental practices and licensed electricians.",
@@ -231,7 +249,7 @@ const I18N = {
     "privacy.legal.name": "Operator",
     "privacy.legal.status": "Status",
     "privacy.legal.role": "Sole Trader",
-    "privacy.content": "<p>Stellar Web Studio values the privacy of its users. When you contact us via WhatsApp or telephone, your data (name and mobile number) is used exclusively to respond to your quote request and to deliver our services. We do not share your data with third parties.</p><p>Under the GDPR, you have the right to request access to, rectification of, or erasure of your data at any time, simply by sending a message to our official contact.</p><p>In the event of a consumer dispute, the consumer may turn to the European Online Dispute Resolution (ODR) platform. The platform is available at <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>This website uses no tracking cookies and no advertising or analytics scripts. The only information stored on your device is your language preference.</p><p>Without prejudice to the rights above, you may lodge a complaint with the CNPD — the Portuguese National Data Protection Authority.</p>"
+    "privacy.content": "<p>Stellar Web Studio values the privacy of its users. When you contact us via WhatsApp or telephone, your data (name and mobile number) is used exclusively to respond to your quote request and to deliver our services. We do not share your data with third parties for marketing.</p><p>If you use the Sofia virtual assistant, chat messages are sent to OpenAI (as a processor) solely to generate a reply. Do not send sensitive data in this chat. Any name, email or WhatsApp number you share is only so Vadym can contact you about your request.</p><p>Under the GDPR, you have the right to request access to, rectification of, or erasure of your data at any time, simply by sending a message to our official contact.</p><p>In the event of a consumer dispute, the consumer may turn to the European Online Dispute Resolution (ODR) platform. The platform is available at <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>This website uses no tracking cookies and no advertising or analytics scripts. The only information stored on your device is your language preference.</p><p>Without prejudice to the rights above, you may lodge a complaint with the CNPD — the Portuguese National Data Protection Authority.</p>"
   },
   ru: {
     "nav.cta": "Связаться",
@@ -335,6 +353,15 @@ const I18N = {
     "contact.sub": "Напишите нам прямо сейчас в WhatsApp и получите предложение за минуты.",
     "contact.wa.title": "Написать в WhatsApp",
     "contact.wa.sub": "Быстрый ответ гарантирован",
+    "chat.aria": "Открыть ассистента Sofia",
+    "chat.close": "Закрыть чат",
+    "chat.send": "Отправить",
+    "chat.name": "Sofia",
+    "chat.role": "Виртуальный ассистент · Stellar Web Studio",
+    "chat.welcome": "Здравствуйте! Я Sofia, виртуальный ассистент Stellar Web Studio. Чем могу помочь вашему бизнесу сегодня? 🚀",
+    "chat.placeholder": "Напишите сообщение",
+    "chat.typing": "Sofia печатает…",
+    "chat.error": "Не удалось получить ответ. Попробуйте ещё раз или напишите в WhatsApp.",
     "seo.title": "Полное цифровое присутствие на португальском рынке",
     "seo.sub": "Эксклюзивные решения веб-дизайна для компаний, которые хотят быть первыми.",
     "seo.p1": "В Stellar Web Studio мы создаём цифровые решения под ключ для бизнеса в Португалии. Мы разрабатываем всё — от лендингов с высокой конверсией до полноценных корпоративных сайтов для автосалонов, ресторанов высокой кухни, медицинских клиник, юридических бюро, стоматологий и лицензированных электриков.",
@@ -348,6 +375,6 @@ const I18N = {
     "privacy.legal.name": "Владелец",
     "privacy.legal.status": "Статус",
     "privacy.legal.role": "Индивидуальный предприниматель",
-    "privacy.content": "<p>Stellar Web Studio ценит конфиденциальность своих пользователей. При обращении к нам через WhatsApp или по телефону ваши данные (имя и номер мобильного телефона) используются исключительно для ответа на ваш запрос коммерческого предложения и для оказания услуг. Мы не передаём ваши данные третьим лицам.</p><p>В соответствии с GDPR вы имеете право в любой момент запросить доступ к своим данным, их исправление или удаление, просто отправив сообщение на наш официальный контакт.</p><p>В случае потребительского спора потребитель может обратиться на европейскую платформу онлайн-урегулирования споров (ODR). Платформа доступна по адресу <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>Этот сайт не использует отслеживающие файлы cookie, рекламные или аналитические скрипты. Единственная информация, сохраняемая на вашем устройстве, — это выбранный вами язык.</p><p>Без ущерба для указанных выше прав вы можете подать жалобу в CNPD — Национальную комиссию по защите данных Португалии.</p>"
+    "privacy.content": "<p>Stellar Web Studio ценит конфиденциальность своих пользователей. При обращении к нам через WhatsApp или по телефону ваши данные (имя и номер мобильного телефона) используются исключительно для ответа на ваш запрос коммерческого предложения и для оказания услуг. Мы не передаём ваши данные третьим лицам в маркетинговых целях.</p><p>Если вы пользуетесь виртуальным ассистентом Sofia, сообщения чата отправляются в OpenAI (обработчик) только для генерации ответа. Не присылайте в этот чат чувствительные данные. Имя, email или WhatsApp, которыми вы делитесь, нужны лишь для того, чтобы Вадим мог связаться с вами по заявке.</p><p>В соответствии с GDPR вы имеете право в любой момент запросить доступ к своим данным, их исправление или удаление, просто отправив сообщение на наш официальный контакт.</p><p>В случае потребительского спора потребитель может обратиться на европейскую платформу онлайн-урегулирования споров (ODR). Платформа доступна по адресу <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">ec.europa.eu/consumers/odr</a>.</p><p>Этот сайт не использует отслеживающие файлы cookie, рекламные или аналитические скрипты. Единственная информация, сохраняемая на вашем устройстве, — это выбранный вами язык.</p><p>Без ущерба для указанных выше прав вы можете подать жалобу в CNPD — Национальную комиссию по защите данных Португалии.</p>"
   }
 };

@@ -7,7 +7,15 @@
 [functions.lighthouse]
   timeout = 26
 
+[functions.chat]
+  timeout = 26
+
 [[redirects]]
   from = "/api/lighthouse"
   to = "/.netlify/functions/lighthouse"
+  status = 200
+
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
   status = 200
