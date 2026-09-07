@@ -582,6 +582,8 @@ main, header, footer{position:relative; z-index:1;}
   border:1px solid var(--cyan);
   box-shadow:0 0 40px rgba(0,255,194,0.35), 0 0 90px rgba(155,92,255,0.15);
   transform:scale(1.03);
+  isolation:isolate;
+  z-index:1;
 }
 .price-card-featured:hover{transform:scale(1.03) translateY(-4px);}
 .price-card-featured .price-amount{
@@ -594,7 +596,7 @@ main, header, footer{position:relative; z-index:1;}
   color:#05050A; font-family:var(--mono); font-size:0.7rem; font-weight:700;
   letter-spacing:0.05em; padding:5px 14px; border-radius:20px;
   white-space:nowrap;
-  z-index:3;
+  z-index:2;
 }
 
 /* Traveling cyan highlight on every framed panel, synced via --frame-angle. */
@@ -660,6 +662,9 @@ main, header, footer{position:relative; z-index:1;}
     var(--cyan) 348deg,
     transparent 360deg
   );
+}
+.price-card-featured::after{
+  z-index:-1;
 }
 
 /* CONTACT */
