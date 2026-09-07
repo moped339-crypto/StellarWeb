@@ -468,7 +468,7 @@ main, header, footer{position:relative; z-index:1;}
   .audit-acc-chevron{transition:none;}
   .ecg-path{animation:none; stroke-dasharray:none;}
   .sofia-typing span{animation:none;}
-  .sofia-orbit, .sofia-globe{animation:none;}
+  .sofia-orbit, .sofia-globe, .sofia-mw, .sofia-mw-stars::before, .sofia-mw-stars::after{animation:none;}
   .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb,
   .ring-debris, .ring-dash, .sky-star, .sky-glint path{animation:none;}
   .card::after,
@@ -922,72 +922,156 @@ main, header, footer{position:relative; z-index:1;}
 }
 .sofia-bubble{
   width:60px; height:60px; border-radius:50%;
-  border:1px solid rgba(0,255,194,0.45);
-  background:radial-gradient(circle at 32% 28%, #16322e 0%, #05050A 72%);
-  color:var(--cyan);
+  border:1px solid rgba(255,186,120,0.45);
+  background:
+    radial-gradient(circle at 50% 50%, #1a1028 0%, #05050A 78%);
+  color:#fff;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
-  box-shadow:0 0 22px rgba(0,255,194,0.35);
+  box-shadow:
+    0 0 16px rgba(155,92,255,0.55),
+    0 0 22px rgba(0,229,255,0.35),
+    0 0 18px rgba(255,110,70,0.32);
   position:relative;
-  overflow:visible;
+  overflow:hidden;
   padding:0;
 }
 .sofia-bubble:hover{
-  box-shadow:0 0 32px rgba(0,255,194,0.55);
+  box-shadow:
+    0 0 22px rgba(155,92,255,0.75),
+    0 0 28px rgba(0,229,255,0.5),
+    0 0 24px rgba(255,140,80,0.45);
 }
 .sofia-planet{
   position:absolute; inset:0;
   display:flex; align-items:center; justify-content:center;
-  perspective:90px;
-}
-.sofia-globe{
-  width:32px; height:32px; border-radius:50%;
   overflow:hidden;
-  background:
-    repeating-linear-gradient(108deg,
-      transparent 0 3px,
-      rgba(5,5,10,0.16) 3px 5px),
-    radial-gradient(circle at 30% 26%, #e8fff8 0%, var(--cyan) 34%, #0a3f38 68%, #020806 100%);
-  box-shadow:inset -5px -4px 8px rgba(0,0,0,0.45), 0 0 12px rgba(0,255,194,0.4);
-  animation:sofia-globe-spin 9s linear infinite;
+  border-radius:50%;
+}
+.sofia-mw{
+  position:absolute; inset:-18%;
+  animation:sofia-galaxy-spin 16s linear infinite;
+}
+.sofia-mw-arm{
+  position:absolute; left:4%; top:31%;
+  width:92%; height:38%;
+  border-radius:50%;
+  filter:blur(1.2px);
+  opacity:0.95;
+}
+.sofia-mw-arm.a1{
+  background:linear-gradient(90deg,
+    transparent 0%, #3ecbff 12%, #7a5cff 34%, #ff5ec8 55%, #ffb347 78%, transparent 100%);
+  transform:rotate(-26deg);
+}
+.sofia-mw-arm.a2{
+  background:linear-gradient(90deg,
+    transparent 0%, #00ffc2 10%, #5b7cff 38%, #ff6b9d 62%, #ff8a3d 82%, transparent 100%);
+  transform:rotate(28deg);
+  opacity:0.88;
+  height:34%; top:33%;
+}
+.sofia-mw-arm.a3{
+  background:linear-gradient(90deg,
+    transparent 0%, #7ad0ff 14%, #c77dff 40%, #ff7a59 68%, transparent 100%);
+  transform:rotate(72deg);
+  opacity:0.8;
+}
+.sofia-mw-arm.a4{
+  background:linear-gradient(90deg,
+    transparent 0%, #ff9ecd 18%, #9b5cff 44%, #00d9ff 70%, transparent 100%);
+  transform:rotate(118deg);
+  opacity:0.72;
+  height:30%; top:35%;
+}
+.sofia-mw-dust{
+  position:absolute; inset:22%;
+  border-radius:50%;
+  background:conic-gradient(from 40deg,
+    transparent 0 18deg,
+    rgba(8,6,14,0.55) 28deg,
+    transparent 48deg,
+    rgba(8,6,14,0.4) 70deg,
+    transparent 100deg,
+    rgba(8,6,14,0.5) 130deg,
+    transparent 160deg);
+  filter:blur(1px);
+}
+.sofia-mw-stars{
+  position:absolute; inset:8%;
+  border-radius:50%;
+  pointer-events:none;
   z-index:1;
 }
-.sofia-orbit{
-  position:absolute; inset:3px;
-  transform-style:preserve-3d;
-  animation:sofia-orbit-spin 5.5s linear infinite;
-  pointer-events:none;
-}
-.sofia-orbit-ring{
-  position:absolute; inset:0;
-  border:1.5px solid rgba(0,255,194,0.8);
+.sofia-mw-stars::before,
+.sofia-mw-stars::after{
+  content:"";
+  position:absolute;
+  width:2px; height:2px;
+  left:50%; top:50%;
   border-radius:50%;
-  transform:rotateX(68deg);
-  box-shadow:0 0 8px rgba(0,255,194,0.35);
+  background:#fff;
 }
-.sofia-sat{
-  position:absolute; top:50%; left:50%;
-  width:6px; height:6px; margin:-3px;
+.sofia-mw-stars::before{
+  box-shadow:
+    -18px -14px 0 0 #fff,
+    16px -18px 0 0.2px #c8fff8,
+    -10px 16px 0 0 #ffd6a8,
+    20px 10px 0 0 #ff9ecd,
+    4px -20px 0 0 #fff,
+    -22px 4px 0 0 #7ad0ff,
+    12px 18px 0 0.15px #fff,
+    -6px -8px 0 0 #ffe9a8;
+  animation:sofia-star-twinkle 2.4s ease-in-out infinite;
+}
+.sofia-mw-stars::after{
+  box-shadow:
+    8px -12px 0 0 #fff,
+    -16px 12px 0 0 #ffb347,
+    22px -2px 0 0.2px #c77dff,
+    -4px 20px 0 0 #00ffc2,
+    14px 6px 0 0 #fff,
+    -20px -6px 0 0 #ff6b9d;
+  animation:sofia-star-twinkle 3.2s ease-in-out infinite reverse;
+}
+.sofia-mw-core{
+  position:absolute; left:50%; top:50%;
+  width:42%; height:42%;
+  margin:-21% 0 0 -21%;
   border-radius:50%;
-  background:#e8fff8;
-  box-shadow:0 0 8px var(--cyan);
-  transform:rotateX(68deg) translateX(24px);
+  background:radial-gradient(circle,
+    #ffffff 0%,
+    #fff1c2 22%,
+    #ffc14d 46%,
+    #ff6b9d 68%,
+    transparent 78%);
+  box-shadow:
+    0 0 10px 3px rgba(255,210,120,0.7),
+    0 0 18px 6px rgba(255,90,160,0.35),
+    0 0 22px 8px rgba(122,92,255,0.28);
+  z-index:1;
 }
 .sofia-ai-label{
   position:absolute; z-index:2;
   font-family:var(--font);
   font-weight:800;
-  font-size:0.78rem;
-  letter-spacing:0.04em;
-  color:#05050A;
+  font-size:0.82rem;
+  letter-spacing:0.06em;
+  color:#fff;
   line-height:1;
   pointer-events:none;
+  text-shadow:
+    0 0 6px rgba(5,5,10,0.9),
+    0 1px 2px #05050A,
+    0 0 12px rgba(255,220,150,0.7);
 }
-@keyframes sofia-orbit-spin{
+@keyframes sofia-galaxy-spin{
   to{transform:rotate(360deg);}
 }
-@keyframes sofia-globe-spin{
-  to{transform:rotate(360deg);}
+@keyframes sofia-star-twinkle{
+  0%,100%{opacity:0.55;}
+  40%{opacity:1;}
+  70%{opacity:0.7;}
 }
 .sofia-icon-close{display:none; position:relative; z-index:3;}
 .sofia-widget.is-open .sofia-planet{display:none;}
