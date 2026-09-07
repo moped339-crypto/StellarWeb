@@ -941,6 +941,7 @@ main, header, footer{position:relative; z-index:1;}
   display:flex; align-items:center; gap:12px;
   padding:14px 14px 12px;
   border-bottom:1px solid var(--glass-border);
+  flex-shrink:0;
 }
 .sofia-avatar{
   width:36px; height:36px; border-radius:50%;
@@ -961,8 +962,10 @@ main, header, footer{position:relative; z-index:1;}
 }
 .sofia-close:hover{color:var(--text);}
 .sofia-log{
-  flex:1; overflow-y:auto; padding:16px 14px;
+  flex:1; min-height:0; overflow-y:auto; padding:16px 14px;
   display:flex; flex-direction:column; gap:10px;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
 }
 .sofia-msg{
   max-width:88%;
@@ -999,6 +1002,7 @@ main, header, footer{position:relative; z-index:1;}
 .sofia-form{
   display:flex; gap:8px; padding:12px;
   border-top:1px solid var(--glass-border);
+  flex-shrink:0;
 }
 .sofia-form input{
   flex:1; min-width:0;
@@ -1202,6 +1206,51 @@ main, header, footer{position:relative; z-index:1;}
   .card.portfolio-card{overflow:hidden;}
   .portfolio-clip.is-limited{overflow:hidden;}
   .portfolio-more:not([hidden]){display:inline-flex;}
+  html.sofia-noscroll,
+  html.sofia-noscroll body{
+    overflow:hidden !important;
+    overscroll-behavior:none;
+  }
+  .sofia-widget.is-open{
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    width:100%;
+    height:100vh;
+    height:-webkit-fill-available;
+    height:100dvh;
+    max-height:100dvh;
+    z-index:999999;
+    align-items:stretch;
+    gap:0;
+  }
+  .sofia-widget.is-open .sofia-panel{
+    width:100%;
+    height:100%;
+    max-height:none;
+    min-height:0;
+    min-width:0;
+    border-radius:0;
+    border-left:none;
+    border-right:none;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:#07080e;
+    padding-top:env(safe-area-inset-top, 0px);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  .sofia-widget.is-open .sofia-bubble{display:none;}
+  .sofia-log{touch-action:pan-y;}
+  .sofia-close{
+    width:44px; height:44px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sofia-msg{font-size:16px; line-height:1.5;}
+  .sofia-form input{font-size:16px;}
+  .sofia-form{
+    padding:12px 12px max(12px, env(safe-area-inset-bottom, 12px));
+  }
 }
 @media (min-width:768px){
   .portfolio-more{display:none !important;}
@@ -1235,7 +1284,6 @@ main, header, footer{position:relative; z-index:1;}
   .floating-wa{width:54px; height:54px; bottom:18px; right:18px;}
   .sofia-widget{right:18px; bottom:86px;}
   .sofia-bubble{width:54px; height:54px;}
-  .sofia-panel{height:min(440px, calc(100vh - 170px));}
   .modal-panel{padding:32px 22px; max-height:85vh;}
   .modal-legal{padding:14px 14px 12px;}
   .modal-legal-list > div{flex-wrap:wrap; gap:6px 12px;}

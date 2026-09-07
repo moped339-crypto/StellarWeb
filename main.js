@@ -407,12 +407,46 @@
     return wrap;
   }
 
+  function sofiaScrollLog() {
+    if (sofiaLog) sofiaLog.scrollTop = sofiaLog.scrollHeight;
+  }
+
+  function sofiaSyncKeyboardLayout() {
+    if (!sofiaWidget) return;
+    var mobile = window.matchMedia("(max-width: 767px)").matches;
+    var open = sofiaWidget.classList.contains("is-open");
+    if (!mobile || !open || !window.visualViewport) {
+      sofiaWidget.style.top = "";
+      sofiaWidget.style.left = "";
+      sofiaWidget.style.width = "";
+      sofiaWidget.style.height = "";
+      return;
+    }
+    var vv = window.visualViewport;
+    sofiaWidget.style.top = vv.offsetTop + "px";
+    sofiaWidget.style.left = vv.offsetLeft + "px";
+    sofiaWidget.style.width = vv.width + "px";
+    sofiaWidget.style.height = vv.height + "px";
+  }
+
+  function sofiaLockPage(lock) {
+    var mobile = window.matchMedia("(max-width: 767px)").matches;
+    document.documentElement.classList.toggle("sofia-noscroll", !!(lock && mobile));
+  }
+
   function sofiaSetOpen(open) {
     if (!sofiaWidget || !sofiaPanel || !sofiaToggle) return;
     sofiaWidget.classList.toggle("is-open", open);
     sofiaPanel.hidden = !open;
     sofiaToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open && sofiaInput) sofiaInput.focus();
+    sofiaLockPage(open);
+    if (!open) {
+      sofiaSyncKeyboardLayout();
+      return;
+    }
+    sofiaScrollLog();
+    sofiaSyncKeyboardLayout();
+    if (sofiaInput) sofiaInput.focus();
   }
 
   if (sofiaToggle && sofiaPanel && sofiaLog && sofiaForm && sofiaInput) {
@@ -432,6 +466,25 @@
         sofiaSetOpen(false);
         sofiaToggle.focus();
       }
+    });
+
+    function sofiaOnKeyboardChange() {
+      sofiaSyncKeyboardLayout();
+      sofiaScrollLog();
+    }
+
+    sofiaInput.addEventListener("focus", function () {
+      setTimeout(sofiaOnKeyboardChange, 100);
+    });
+    sofiaInput.addEventListener("blur", function () {
+      setTimeout(sofiaOnKeyboardChange, 100);
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", sofiaOnKeyboardChange);
+      window.visualViewport.addEventListener("scroll", sofiaSyncKeyboardLayout);
+    }
+    window.addEventListener("orientationchange", function () {
+      setTimeout(sofiaOnKeyboardChange, 200);
     });
 
     sofiaForm.addEventListener("submit", function (e) {
