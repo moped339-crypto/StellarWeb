@@ -407,31 +407,62 @@
     return wrap;
   }
 
+  var sofiaScrollY = 0;
+
+  function sofiaIsMobile() {
+    return window.matchMedia("(max-width: 767px)").matches;
+  }
+
+  function sofiaClearInlineBox() {
+    if (!sofiaWidget) return;
+    sofiaWidget.style.top = "";
+    sofiaWidget.style.left = "";
+    sofiaWidget.style.right = "";
+    sofiaWidget.style.bottom = "";
+    sofiaWidget.style.width = "";
+    sofiaWidget.style.height = "";
+    sofiaWidget.style.maxHeight = "";
+    sofiaWidget.style.transform = "";
+  }
+
   function sofiaScrollLog() {
     if (sofiaLog) sofiaLog.scrollTop = sofiaLog.scrollHeight;
   }
 
   function sofiaSyncKeyboardLayout() {
-    if (!sofiaWidget) return;
-    var mobile = window.matchMedia("(max-width: 767px)").matches;
-    var open = sofiaWidget.classList.contains("is-open");
-    if (!mobile || !open || !window.visualViewport) {
-      sofiaWidget.style.top = "";
-      sofiaWidget.style.left = "";
-      sofiaWidget.style.width = "";
-      sofiaWidget.style.height = "";
+    sofiaClearInlineBox();
+    if (!sofiaWidget || !sofiaIsMobile() || !sofiaWidget.classList.contains("is-open")) {
+      document.documentElement.style.setProperty("--sofia-kb", "0px");
+      document.documentElement.style.removeProperty("--sofia-safe");
       return;
     }
-    var vv = window.visualViewport;
-    sofiaWidget.style.top = vv.offsetTop + "px";
-    sofiaWidget.style.left = vv.offsetLeft + "px";
-    sofiaWidget.style.width = vv.width + "px";
-    sofiaWidget.style.height = vv.height + "px";
+    var kb = 0;
+    if (window.visualViewport) {
+      kb = Math.max(
+        0,
+        window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop
+      );
+    }
+    document.documentElement.style.setProperty("--sofia-kb", kb + "px");
+    if (kb > 80) {
+      document.documentElement.style.setProperty("--sofia-safe", "0px");
+    } else {
+      document.documentElement.style.removeProperty("--sofia-safe");
+    }
+    sofiaScrollLog();
   }
 
   function sofiaLockPage(lock) {
-    var mobile = window.matchMedia("(max-width: 767px)").matches;
-    document.documentElement.classList.toggle("sofia-noscroll", !!(lock && mobile));
+    if (!sofiaIsMobile()) {
+      document.documentElement.classList.remove("sofia-noscroll");
+      return;
+    }
+    document.documentElement.classList.toggle("sofia-noscroll", lock);
+    if (lock) {
+      sofiaScrollY = window.scrollY || window.pageYOffset || 0;
+      return;
+    }
+    window.scrollTo(0, sofiaScrollY);
   }
 
   function sofiaSetOpen(open) {
@@ -439,14 +470,12 @@
     sofiaWidget.classList.toggle("is-open", open);
     sofiaPanel.hidden = !open;
     sofiaToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open && sofiaInput) sofiaInput.blur();
     sofiaLockPage(open);
-    if (!open) {
-      sofiaSyncKeyboardLayout();
-      return;
-    }
-    sofiaScrollLog();
     sofiaSyncKeyboardLayout();
-    if (sofiaInput) sofiaInput.focus();
+    if (!open) return;
+    sofiaScrollLog();
+    if (sofiaInput && !sofiaIsMobile()) sofiaInput.focus();
   }
 
   if (sofiaToggle && sofiaPanel && sofiaLog && sofiaForm && sofiaInput) {
@@ -481,10 +510,11 @@
     });
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", sofiaOnKeyboardChange);
-      window.visualViewport.addEventListener("scroll", sofiaSyncKeyboardLayout);
+      window.visualViewport.addEventListener("scroll", sofiaOnKeyboardChange);
     }
+    window.addEventListener("resize", sofiaOnKeyboardChange);
     window.addEventListener("orientationchange", function () {
-      setTimeout(sofiaOnKeyboardChange, 200);
+      setTimeout(sofiaOnKeyboardChange, 250);
     });
 
     sofiaForm.addEventListener("submit", function (e) {

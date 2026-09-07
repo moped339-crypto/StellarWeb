@@ -15,6 +15,7 @@
   --radius: 16px;
   --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'JetBrains Mono', monospace;
+  --sofia-kb: 0px;
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -1236,37 +1237,62 @@ main, header, footer{position:relative; z-index:1;}
   html.sofia-noscroll body{
     overflow:hidden !important;
     overscroll-behavior:none;
+    height:100%;
+    touch-action:none;
   }
+  html.sofia-noscroll .sofia-widget.is-open,
+  html.sofia-noscroll .sofia-widget.is-open *{
+    touch-action:auto;
+  }
+  html.sofia-noscroll .sofia-log{
+    touch-action:pan-y;
+  }
+  html.sofia-noscroll .floating-wa{visibility:hidden; pointer-events:none;}
   .sofia-widget.is-open{
-    position:fixed;
-    top:0; left:0; right:0; bottom:0;
-    width:100%;
-    height:100vh;
-    height:-webkit-fill-available;
-    height:100dvh;
-    max-height:100dvh;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:var(--sofia-kb, 0px) !important;
+    width:auto !important;
+    height:auto !important;
+    max-height:none !important;
+    min-height:0;
     z-index:999999;
+    display:flex;
+    flex-direction:column;
     align-items:stretch;
     gap:0;
+    background:#05050A;
+    overflow:hidden;
+    transform:none !important;
   }
   .sofia-widget.is-open .sofia-panel{
-    width:100%;
-    height:100%;
-    max-height:none;
+    display:grid !important;
+    grid-template-rows:auto minmax(160px, 1fr) auto;
+    flex:1 1 auto;
+    width:100% !important;
+    height:auto !important;
+    max-height:none !important;
     min-height:0;
     min-width:0;
+    border:none;
     border-radius:0;
-    border-left:none;
-    border-right:none;
     box-shadow:none;
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
-    background:#07080e;
+    background:#05050A !important;
     padding-top:env(safe-area-inset-top, 0px);
-    padding-bottom:env(safe-area-inset-bottom, 0px);
   }
   .sofia-widget.is-open .sofia-bubble{display:none;}
-  .sofia-log{touch-action:pan-y;}
+  .sofia-widget.is-open .sofia-head{
+    min-height:56px;
+  }
+  .sofia-widget.is-open .sofia-log{
+    min-height:160px;
+    overflow-y:auto;
+    touch-action:pan-y;
+  }
   .sofia-close{
     width:44px; height:44px; padding:0;
     display:flex; align-items:center; justify-content:center;
@@ -1274,8 +1300,13 @@ main, header, footer{position:relative; z-index:1;}
   }
   .sofia-msg{font-size:16px; line-height:1.5;}
   .sofia-form input{font-size:16px;}
-  .sofia-form{
-    padding:12px 12px max(12px, env(safe-area-inset-bottom, 12px));
+  .sofia-widget.is-open .sofia-form{
+    padding:10px 12px;
+    padding-bottom:calc(12px + var(--sofia-safe, env(safe-area-inset-bottom, 0px)));
+    background:#05050A;
+  }
+  .sofia-widget.is-open .sofia-send{
+    width:44px; height:44px; border-radius:50%;
   }
 }
 @media (min-width:768px){
