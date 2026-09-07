@@ -57,10 +57,25 @@ body{
   mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
 }
 .sky-map{
-  position:absolute; inset:0;
-  width:100%; height:100%;
+  position:absolute; inset:-8%;
+  width:116%; height:116%;
   opacity:0.4;
   pointer-events:none;
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform-origin:50% 42%;
+}
+@supports (animation-timeline: scroll()){
+  .sky-map{
+    animation:sky-parallax linear both;
+    animation-timeline:scroll();
+  }
+}
+@keyframes sky-parallax{
+  from{transform:translate3d(0,0,0) rotate(0deg);}
+  to{transform:translate3d(0,-3.5vh,0) rotate(18deg);}
 }
 .sky-star{animation:sky-twinkle 4.8s ease-in-out infinite;}
 .sky-star.s2{animation-duration:6.4s; animation-delay:-1.6s;}
@@ -468,9 +483,10 @@ main, header, footer{position:relative; z-index:1;}
   .audit-acc-chevron{transition:none;}
   .ecg-path{animation:none; stroke-dasharray:none;}
   .sofia-typing span{animation:none;}
-  .sofia-orbit, .sofia-globe, .sofia-mw, .sofia-mw-stars::before, .sofia-mw-stars::after{animation:none;}
+  .sofia-mw-spin, .sofia-mw-specks{animation:none;}
   .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb,
-  .ring-debris, .ring-dash, .sky-star, .sky-glint path{animation:none;}
+  .ring-debris, .ring-dash, .sky-star, .sky-glint path, .sky-map{animation:none;}
+  .sky-map{transform:translate3d(0,0,0); will-change:auto;}
   .card::after,
   .audit-block::after,
   .audit-acc::after,
@@ -921,149 +937,50 @@ main, header, footer{position:relative; z-index:1;}
   display:flex; flex-direction:column; align-items:flex-end; gap:12px;
 }
 .sofia-bubble{
-  width:60px; height:60px; border-radius:50%;
-  border:1px solid rgba(255,186,120,0.45);
-  background:
-    radial-gradient(circle at 50% 50%, #1a1028 0%, #05050A 78%);
+  width:92px; height:92px;
+  border:none; border-radius:0;
+  background:transparent;
   color:#fff;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
-  box-shadow:
-    0 0 16px rgba(155,92,255,0.55),
-    0 0 22px rgba(0,229,255,0.35),
-    0 0 18px rgba(255,110,70,0.32);
+  box-shadow:none;
   position:relative;
-  overflow:hidden;
+  overflow:visible;
   padding:0;
 }
-.sofia-bubble:hover{
-  box-shadow:
-    0 0 22px rgba(155,92,255,0.75),
-    0 0 28px rgba(0,229,255,0.5),
-    0 0 24px rgba(255,140,80,0.45);
+.sofia-bubble:hover .sofia-mw-svg{
+  filter:brightness(1.12) saturate(1.08);
 }
 .sofia-planet{
   position:absolute; inset:0;
   display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
-  border-radius:50%;
+  overflow:visible;
 }
-.sofia-mw{
-  position:absolute; inset:-18%;
-  animation:sofia-galaxy-spin 16s linear infinite;
-}
-.sofia-mw-arm{
-  position:absolute; left:4%; top:31%;
-  width:92%; height:38%;
-  border-radius:50%;
-  filter:blur(1.2px);
-  opacity:0.95;
-}
-.sofia-mw-arm.a1{
-  background:linear-gradient(90deg,
-    transparent 0%, #3ecbff 12%, #7a5cff 34%, #ff5ec8 55%, #ffb347 78%, transparent 100%);
-  transform:rotate(-26deg);
-}
-.sofia-mw-arm.a2{
-  background:linear-gradient(90deg,
-    transparent 0%, #00ffc2 10%, #5b7cff 38%, #ff6b9d 62%, #ff8a3d 82%, transparent 100%);
-  transform:rotate(28deg);
-  opacity:0.88;
-  height:34%; top:33%;
-}
-.sofia-mw-arm.a3{
-  background:linear-gradient(90deg,
-    transparent 0%, #7ad0ff 14%, #c77dff 40%, #ff7a59 68%, transparent 100%);
-  transform:rotate(72deg);
-  opacity:0.8;
-}
-.sofia-mw-arm.a4{
-  background:linear-gradient(90deg,
-    transparent 0%, #ff9ecd 18%, #9b5cff 44%, #00d9ff 70%, transparent 100%);
-  transform:rotate(118deg);
-  opacity:0.72;
-  height:30%; top:35%;
-}
-.sofia-mw-dust{
-  position:absolute; inset:22%;
-  border-radius:50%;
-  background:conic-gradient(from 40deg,
-    transparent 0 18deg,
-    rgba(8,6,14,0.55) 28deg,
-    transparent 48deg,
-    rgba(8,6,14,0.4) 70deg,
-    transparent 100deg,
-    rgba(8,6,14,0.5) 130deg,
-    transparent 160deg);
-  filter:blur(1px);
-}
-.sofia-mw-stars{
-  position:absolute; inset:8%;
-  border-radius:50%;
+.sofia-mw-svg{
+  width:100%; height:100%;
+  overflow:visible;
+  display:block;
   pointer-events:none;
-  z-index:1;
 }
-.sofia-mw-stars::before,
-.sofia-mw-stars::after{
-  content:"";
-  position:absolute;
-  width:2px; height:2px;
-  left:50%; top:50%;
-  border-radius:50%;
-  background:#fff;
+.sofia-mw-spin{
+  transform-origin:50px 50px;
+  transform-box:view-box;
+  animation:sofia-galaxy-spin 22s linear infinite;
 }
-.sofia-mw-stars::before{
-  box-shadow:
-    -18px -14px 0 0 #fff,
-    16px -18px 0 0.2px #c8fff8,
-    -10px 16px 0 0 #ffd6a8,
-    20px 10px 0 0 #ff9ecd,
-    4px -20px 0 0 #fff,
-    -22px 4px 0 0 #7ad0ff,
-    12px 18px 0 0.15px #fff,
-    -6px -8px 0 0 #ffe9a8;
-  animation:sofia-star-twinkle 2.4s ease-in-out infinite;
-}
-.sofia-mw-stars::after{
-  box-shadow:
-    8px -12px 0 0 #fff,
-    -16px 12px 0 0 #ffb347,
-    22px -2px 0 0.2px #c77dff,
-    -4px 20px 0 0 #00ffc2,
-    14px 6px 0 0 #fff,
-    -20px -6px 0 0 #ff6b9d;
-  animation:sofia-star-twinkle 3.2s ease-in-out infinite reverse;
-}
-.sofia-mw-core{
-  position:absolute; left:50%; top:50%;
-  width:42%; height:42%;
-  margin:-21% 0 0 -21%;
-  border-radius:50%;
-  background:radial-gradient(circle,
-    #ffffff 0%,
-    #fff1c2 22%,
-    #ffc14d 46%,
-    #ff6b9d 68%,
-    transparent 78%);
-  box-shadow:
-    0 0 10px 3px rgba(255,210,120,0.7),
-    0 0 18px 6px rgba(255,90,160,0.35),
-    0 0 22px 8px rgba(122,92,255,0.28);
-  z-index:1;
-}
+.sofia-mw-specks{animation:sofia-star-twinkle 2.6s ease-in-out infinite;}
 .sofia-ai-label{
   position:absolute; z-index:2;
   font-family:var(--font);
   font-weight:800;
-  font-size:0.82rem;
+  font-size:0.78rem;
   letter-spacing:0.06em;
   color:#fff;
   line-height:1;
   pointer-events:none;
   text-shadow:
-    0 0 6px rgba(5,5,10,0.9),
+    0 0 6px rgba(5,5,10,0.95),
     0 1px 2px #05050A,
-    0 0 12px rgba(255,220,150,0.7);
+    0 0 10px rgba(255,220,150,0.65);
 }
 @keyframes sofia-galaxy-spin{
   to{transform:rotate(360deg);}
@@ -1077,7 +994,12 @@ main, header, footer{position:relative; z-index:1;}
 .sofia-widget.is-open .sofia-planet{display:none;}
 .sofia-widget.is-open .sofia-icon-close{display:block;}
 .sofia-widget.is-open .sofia-bubble{
+  width:48px; height:48px;
+  border-radius:50%;
+  overflow:hidden;
   background:rgba(8,12,16,0.92);
+  border:1px solid rgba(255,255,255,0.16);
+  box-shadow:0 8px 24px rgba(0,0,0,0.45);
 }
 .sofia-panel{
   width:min(360px, calc(100vw - 32px));
@@ -1361,7 +1283,15 @@ main, header, footer{position:relative; z-index:1;}
 }
 
 @media (max-width:767px){
-  .sky-map{opacity:0.38;}
+  .sky-map{
+    opacity:0.38;
+    animation:none !important;
+    transform:translate3d(0,0,0) !important;
+    will-change:auto;
+    inset:0;
+    width:100%;
+    height:100%;
+  }
   .sky-dense{display:none;}
   .hero{padding:12px 20px 44px; gap:8px;}
   .hero-visual{max-width:236px;}
@@ -1519,7 +1449,7 @@ main, header, footer{position:relative; z-index:1;}
   .footer-inner{flex-direction:column; text-align:center;}
   .floating-wa{width:54px; height:54px; bottom:18px; right:18px;}
   .sofia-widget{right:18px; bottom:86px;}
-  .sofia-bubble{width:54px; height:54px;}
+  .sofia-bubble{width:80px; height:80px;}
   .modal-panel{padding:32px 22px; max-height:85vh;}
   .modal-legal{padding:14px 14px 12px;}
   .modal-legal-list > div{flex-wrap:wrap; gap:6px 12px;}
