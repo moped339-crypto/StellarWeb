@@ -671,29 +671,47 @@
 
   applyPortfolioView();
 
-  var skyMap = document.querySelector(".sky-map");
-  var skyDesktop = window.matchMedia("(min-width: 768px)");
-  var skyReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var skyScrollAnim = false;
-  try {
-    skyScrollAnim = window.CSS && CSS.supports && CSS.supports("animation-timeline", "scroll()");
-  } catch (e) {}
-  if (skyMap && !skyScrollAnim && skyDesktop.matches && !skyReduce.matches) {
-    var skyTick = false;
-    function skyParallax() {
-      skyTick = false;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var p = max > 0 ? window.scrollY / max : 0;
-      if (p < 0) p = 0;
-      if (p > 1) p = 1;
-      skyMap.style.transform = "translate3d(0," + (-3.5 * p).toFixed(3) + "vh,0) rotate(" + (18 * p).toFixed(3) + "deg)";
+  if (window.innerWidth >= 768) {
+    var galaxyImg = document.querySelector(".sofia-mw-img");
+    if (galaxyImg) {
+      var galaxySrc = galaxyImg.getAttribute("data-src");
+      if (galaxySrc) galaxyImg.src = galaxySrc;
     }
-    window.addEventListener("scroll", function () {
-      if (!skyDesktop.matches || skyReduce.matches) return;
-      if (!skyTick) {
-        skyTick = true;
-        requestAnimationFrame(skyParallax);
+
+    var skyMap = document.querySelector(".sky-map");
+    var skyReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var skyScrollAnim = false;
+    try {
+      skyScrollAnim = window.CSS && CSS.supports && CSS.supports("animation-timeline", "scroll()");
+    } catch (e) {}
+    if (skyMap && !skyScrollAnim && !skyReduce.matches) {
+      var skyTick = false;
+      function skyParallax() {
+        skyTick = false;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? window.scrollY / max : 0;
+        if (p < 0) p = 0;
+        if (p > 1) p = 1;
+        skyMap.style.transform = "translate3d(0," + (-3.5 * p).toFixed(3) + "vh,0) rotate(" + (18 * p).toFixed(3) + "deg)";
       }
-    }, { passive: true });
+      window.addEventListener("scroll", function () {
+        if (window.innerWidth < 768 || skyReduce.matches) return;
+        if (!skyTick) {
+          skyTick = true;
+          requestAnimationFrame(skyParallax);
+        }
+      }, { passive: true });
+    }
+  } else {
+    var bgFx = document.querySelector(".bg-fx");
+    if (bgFx) {
+      bgFx.replaceChildren();
+    }
+    var mobileGalaxy = document.querySelector(".sofia-mw-img");
+    if (mobileGalaxy) {
+      mobileGalaxy.removeAttribute("src");
+      mobileGalaxy.removeAttribute("data-src");
+      mobileGalaxy.remove();
+    }
   }
 })();

@@ -1268,7 +1268,11 @@ main, header, footer{position:relative; z-index:1;}
   html{animation:none;}
   .sky-map,
   .glow,
-  .grid-overlay{
+  .grid-overlay,
+  .starfield,
+  .neptune-glow,
+  .sofia-mw-img,
+  .sofia-planet::before{
     display:none !important;
     animation:none !important;
   }
@@ -1291,7 +1295,11 @@ main, header, footer{position:relative; z-index:1;}
     will-change:auto;
   }
   .sofia-mw-img{filter:none;}
-  .sofia-planet::before{opacity:0.85; transform:none;}
+  .sofia-planet{
+    background:radial-gradient(circle at 38% 34%, #f7fffb 0%, #00ffc2 38%, #25d366 68%, #0e5c44 100%);
+    clip-path:circle(46% at 50% 50%);
+  }
+  .sofia-planet::before{display:none !important;}
   .card.portfolio-card{overflow:hidden;}
   .portfolio-clip.is-limited{overflow:hidden;}
   .portfolio-more:not([hidden]){display:inline-flex;}
