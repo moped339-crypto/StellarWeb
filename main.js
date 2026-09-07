@@ -117,11 +117,13 @@
   var auditTick = null;
   var auditAbort = null;
 
-  function setAuditAccordion(cat) {
+  function setAuditAccordion(cat, forceOpen) {
     var current = cat
       ? document.querySelector('.audit-acc[data-cat="' + cat + '"]')
       : null;
-    var willOpen = !!(current && !current.classList.contains("is-open"));
+    var willOpen = forceOpen
+      ? !!current
+      : !!(current && !current.classList.contains("is-open"));
     document.querySelectorAll(".audit-acc").forEach(function (item) {
       var open = willOpen && item.getAttribute("data-cat") === cat;
       item.classList.toggle("is-open", open);
@@ -133,7 +135,7 @@
       gauge.classList.toggle("is-open", open);
       gauge.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    if (willOpen && current && typeof current.scrollIntoView === "function") {
+    if (willOpen && !forceOpen && current && typeof current.scrollIntoView === "function") {
       current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }
@@ -352,6 +354,7 @@
         renderAudit(targetUrl, data);
         setTimeout(function () {
           setAuditView("results");
+          setAuditAccordion("performance", true);
           if (auditSubmit) auditSubmit.disabled = false;
         }, 380);
       }).catch(function (err) {
