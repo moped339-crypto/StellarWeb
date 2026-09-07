@@ -60,7 +60,36 @@ export const handler = async (event) => {
     "- Lojas Online / E-commerce & Integrações de IA: Preços sob consulta (Investimento personalizado).\n" +
     "- Alojamento ultra-rápido em Netlify, conformidade total com o RGPD, velocidade <1s.\n" +
     "- Caso o utilizador demonstre interesse real em avançar ou solicitar um orçamento, pede cordialmente o Nome, E-mail ou contacto de WhatsApp para que o Vadym possa entrar em contacto. Nunca inventes informações que não estejam aqui.\n" +
+    "Sempre que o cliente fornecer com sucesso um contacto (e-mail ou WhatsApp), deves incluir a palavra-chave [LEAD_DETECTED] e resumir os dados logo no início ou no fim da tua resposta interna, para que o sistema possa extrair. Coloca essa linha técnica numa linha à parte; o cliente não deve ver a palavra-chave.\n" +
     "Responde no idioma do utilizador. Código de idioma da página: " + lang + ".";
+
+  const stripLeadTag = (text) =>
+    String(text || "")
+      .replace(/^[^\n]*\[LEAD_DETECTED\][^\n]*\n?/gim, "")
+      .replace(/\[LEAD_DETECTED\]/gi, "")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
+  const notifyTelegram = async (userMessage, aiResponse) => {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+    if (!token || !chatId) return;
+
+    const text = (
+      "🚀 Nova Lead Recebida!\n\n" +
+      "Detalhes do Chat:\n" + userMessage + "\n\n" +
+      "Resposta da Sofia:\n" + aiResponse
+    ).slice(0, 3900);
+
+    await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: text
+      })
+    });
+  };
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -92,7 +121,16 @@ export const handler = async (event) => {
       return json(502, { error: "Empty assistant reply." });
     }
 
-    return json(200, { reply: reply });
+    if (reply.indexOf("[LEAD_DETECTED]") !== -1) {
+      const userMessage = messages[messages.length - 1].content;
+      try {
+        await notifyTelegram(userMessage, reply);
+      } catch (err) {
+        // Chat reply still goes to the visitor if Telegram is down.
+      }
+    }
+
+    return json(200, { reply: stripLeadTag(reply) });
   } catch (error) {
     return json(500, {
       error: "Assistant is temporarily unavailable."
