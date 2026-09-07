@@ -1265,25 +1265,33 @@ main, header, footer{position:relative; z-index:1;}
 }
 
 @media (max-width:767px){
-  .sky-map{
-    opacity:0.38;
-    inset:0;
-    width:100%;
-    height:100%;
+  html{animation:none;}
+  .sky-map,
+  .glow,
+  .grid-overlay{
+    display:none !important;
+    animation:none !important;
+  }
+  .bg-fx{
+    background:
+      radial-gradient(ellipse 90% 55% at 12% -10%, rgba(0,255,194,0.1), transparent 58%),
+      radial-gradient(ellipse 80% 50% at 100% 110%, rgba(155,92,255,0.1), transparent 58%);
   }
   .hero{padding:12px 20px 44px; gap:8px;}
   .hero-visual{max-width:236px;}
-  .neptune-clouds{animation-duration:16s;}
-  .neptune-moon{animation-duration:8s;}
-  .ring-debris{animation-duration:12s;}
-  .data-orb{animation-duration:5.5s;}
-  .neptune-glow{animation-duration:3.8s;}
-  .neptune-rings{
-    filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px rgba(232,251,255,0.55));
+  .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb,
+  .ring-debris, .ring-dash{
+    animation:none !important;
   }
-  .ring-mobile-gleam{display:block;}
-  .ring-dust{opacity:0.28;}
-  .ring-dash{opacity:0.95; stroke-width:2.4px;}
+  .neptune-rings{filter:none;}
+  .ring-mobile-gleam{display:none;}
+  .sofia-mw-img,
+  .sofia-planet::before{
+    animation:none !important;
+    will-change:auto;
+  }
+  .sofia-mw-img{filter:none;}
+  .sofia-planet::before{opacity:0.85; transform:none;}
   .card.portfolio-card{overflow:hidden;}
   .portfolio-clip.is-limited{overflow:hidden;}
   .portfolio-more:not([hidden]){display:inline-flex;}

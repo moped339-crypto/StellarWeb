@@ -1,36 +1,39 @@
-.sky-map{
-  will-change:transform;
-  transform:translate3d(0,0,0);
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  transform-origin:50% 42%;
-}
-.sky-map::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("/assets/sky-map.svg") center / cover no-repeat;
-  animation:sky-breathe 9s ease-in-out infinite;
-}
-.sky-map::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 18% 11%, rgba(232,251,255,.55) 0 1px, transparent 3px),
-    radial-gradient(circle at 74% 14%, rgba(232,251,255,.5) 0 1.2px, transparent 3.5px),
-    radial-gradient(circle at 24% 16%, rgba(200,255,248,.45) 0 1px, transparent 3px),
-    radial-gradient(circle at 86% 18%, rgba(232,251,255,.4) 0 1px, transparent 3px),
-    radial-gradient(circle at 19% 52%, rgba(255,255,255,.5) 0 1.1px, transparent 3.2px);
-  animation:sky-flare 6.5s ease-in-out infinite;
-}
-@supports (animation-timeline: scroll()){
+@media (min-width:768px){
   .sky-map{
-    animation:sky-parallax linear both;
-    animation-timeline:scroll();
+    will-change:transform;
+    transform:translate3d(0,0,0);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    transform-origin:50% 42%;
+  }
+  .sky-map::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("/assets/sky-map.svg") center / cover no-repeat;
+    animation:sky-breathe 9s ease-in-out infinite;
+  }
+  .sky-map::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 18% 11%, rgba(232,251,255,.55) 0 1px, transparent 3px),
+      radial-gradient(circle at 74% 14%, rgba(232,251,255,.5) 0 1.2px, transparent 3.5px),
+      radial-gradient(circle at 24% 16%, rgba(200,255,248,.45) 0 1px, transparent 3px),
+      radial-gradient(circle at 86% 18%, rgba(232,251,255,.4) 0 1px, transparent 3px),
+      radial-gradient(circle at 19% 52%, rgba(255,255,255,.5) 0 1.1px, transparent 3.2px);
+    animation:sky-flare 6.5s ease-in-out infinite;
+  }
+  @supports (animation-timeline: scroll()){
+    .sky-map{
+      animation:sky-parallax linear both;
+      animation-timeline:scroll();
+    }
   }
 }
+
 @keyframes sky-parallax{
   from{transform:translate3d(0,0,0) rotate(0deg);}
   to{transform:translate3d(0,-3.5vh,0) rotate(18deg);}
@@ -46,14 +49,13 @@
 }
 
 @media (max-width:767px){
-  .sky-map{
-    animation:none !important;
-    transform:translate3d(0,0,0) !important;
-    will-change:auto;
-  }
+  .sky-map,
   .sky-map::before,
   .sky-map::after{
+    display:none !important;
     animation:none !important;
+    content:none !important;
+    background:none !important;
   }
 }
 
