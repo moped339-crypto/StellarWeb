@@ -213,7 +213,7 @@ main, header, footer{position:relative; z-index:1;}
 .hero-visual{display:flex; align-items:center; justify-content:center; position:relative;}
 .data-orb{
   width:100%; max-width:520px; height:auto; overflow:visible;
-  animation:neptune-float 11s ease-in-out infinite;
+  animation:neptune-float 7s ease-in-out infinite;
 }
 .neptune-glow,
 .neptune-clouds,
@@ -222,29 +222,30 @@ main, header, footer{position:relative; z-index:1;}
   transform-box:view-box;
   transform-origin:50% 50%;
 }
-.neptune-glow{animation:neptune-breathe 8s ease-in-out infinite;}
-.neptune-clouds{animation:neptune-spin 64s linear infinite;}
-.neptune-moon{animation:neptune-moon-orbit 28s linear infinite;}
+.neptune-glow{animation:neptune-breathe 5s ease-in-out infinite;}
+.neptune-clouds{animation:neptune-spin 28s linear infinite;}
+.neptune-moon{animation:neptune-moon-orbit 12s linear infinite;}
 .ring-debris{
-  animation:neptune-spin 78s linear infinite;
+  animation:neptune-spin 18s linear infinite;
   transform-origin:center;
   transform-box:fill-box;
 }
-.ring-dash{animation:ring-drift 38s linear infinite;}
-.ring-dash.d2{animation-duration:54s; animation-direction:reverse;}
-.ring-dash.d3{animation-duration:46s; animation-delay:-11s;}
+.ring-dash{animation:ring-drift 16s linear infinite;}
+.ring-dash.d2{animation-duration:22s; animation-direction:reverse;}
+.ring-dash.d3{animation-duration:19s; animation-delay:-6s;}
+.ring-mobile-gleam{display:none;}
 .star-twinkle{animation:star-twinkle 4.5s ease-in-out infinite;}
 .star-twinkle.s2{animation-duration:6.2s; animation-delay:-1.4s;}
 .star-twinkle.s3{animation-duration:5.1s; animation-delay:-2.8s;}
 @keyframes neptune-spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
 @keyframes neptune-moon-orbit{from{transform:rotate(0deg);} to{transform:rotate(-360deg);}}
 @keyframes neptune-breathe{
-  0%,100%{opacity:0.85; transform:scale(1);}
-  50%{opacity:1; transform:scale(1.04);}
+  0%,100%{opacity:0.8; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.07);}
 }
 @keyframes neptune-float{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
+  50%{transform:translateY(-14px);}
 }
 @keyframes star-twinkle{
   0%,100%{opacity:0.25;}
@@ -1262,7 +1263,7 @@ main, header, footer{position:relative; z-index:1;}
   .hero-sub{margin-left:auto; margin-right:auto;}
   .hero-actions{justify-content:center;}
   .card.metric-card{padding:30px 20px;}
-  .hero-visual{order:-1; max-width:240px; margin:0 auto;}
+  .hero-visual{order:-1; max-width:280px; margin:0 auto;}
   .grid-portfolio{grid-template-columns:repeat(2, 1fr); gap:32px;}
   .grid-pricing{grid-template-columns:repeat(2, minmax(0, 1fr));}
   .process-grid{grid-template-columns:repeat(2, minmax(0, 1fr));}
@@ -1279,7 +1280,18 @@ main, header, footer{position:relative; z-index:1;}
   .sky-map{opacity:0.38;}
   .sky-dense{display:none;}
   .hero{padding:12px 20px 44px; gap:8px;}
-  .hero-visual{max-width:200px;}
+  .hero-visual{max-width:236px;}
+  .neptune-clouds{animation-duration:16s;}
+  .neptune-moon{animation-duration:8s;}
+  .ring-debris{animation-duration:12s;}
+  .data-orb{animation-duration:5.5s;}
+  .neptune-glow{animation-duration:3.8s;}
+  .neptune-rings{
+    filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px rgba(232,251,255,0.55));
+  }
+  .ring-mobile-gleam{display:block;}
+  .ring-dust{opacity:0.28;}
+  .ring-dash{opacity:0.95; stroke-width:2.4px;}
   .card.portfolio-card{overflow:hidden;}
   .portfolio-clip.is-limited{overflow:hidden;}
   .portfolio-more:not([hidden]){display:inline-flex;}
@@ -1413,7 +1425,7 @@ main, header, footer{position:relative; z-index:1;}
   .grid-pricing{grid-template-columns:1fr;}
   .process-grid{grid-template-columns:1fr;}
   .hero{padding:8px 20px 40px; gap:4px;}
-  .hero-visual{max-width:168px;}
+  .hero-visual{max-width:210px;}
   .eyebrow{margin-bottom:8px;}
   .hero-title{margin-bottom:12px; font-size:clamp(1.65rem, 7.2vw, 2.15rem);}
   .hero-sub{margin-bottom:18px;}

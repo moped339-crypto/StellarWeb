@@ -192,9 +192,9 @@
             <feGaussianBlur in="SourceGraphic" stdDeviation="0.6"/>
           </filter>
           <g id="ringDebrisBits">
-            <circle r="212" fill="none" stroke="#9aa8c7" stroke-width="8" opacity="0.05"/>
-            <circle r="222" fill="none" stroke="#c8fff8" stroke-width="4" opacity="0.08"/>
-            <circle r="232" fill="none" stroke="#e8fbff" stroke-width="2" opacity="0.12"/>
+            <circle class="ring-dust" r="212" fill="none" stroke="#9aa8c7" stroke-width="8" opacity="0.05"/>
+            <circle class="ring-dust" r="222" fill="none" stroke="#c8fff8" stroke-width="4" opacity="0.08"/>
+            <circle class="ring-dust" r="232" fill="none" stroke="#e8fbff" stroke-width="2" opacity="0.12"/>
             <circle class="ring-dash" r="214" fill="none" stroke="#f4ffff" stroke-width="1.4" opacity="0.55" stroke-dasharray="1.2 11 0.6 18 2.4 14 0.8 22"/>
             <circle class="ring-dash d2" r="226" fill="none" stroke="#d7e7ff" stroke-width="1.1" opacity="0.42" stroke-dasharray="0.7 16 1.8 12 0.5 24 1.3 19"/>
             <circle class="ring-dash d3" r="236" fill="none" stroke="#c8fff8" stroke-width="0.9" opacity="0.38" stroke-dasharray="0.5 20 1.4 15 0.8 26"/>
@@ -238,7 +238,13 @@
           <g clip-path="url(#ringBack)">
             <g transform="translate(300 300) rotate(-26) scale(1 0.30)">
               <g class="ring-debris">
+                <rect x="-240" y="-240" width="480" height="480" fill="none"/>
                 <use href="#ringDebrisBits"/>
+                <g class="ring-mobile-gleam">
+                  <circle r="218" fill="none" stroke="#f7ffff" stroke-width="3.2" opacity="0.9" stroke-dasharray="3.4 7 1.1 12 5 9"/>
+                  <circle r="228" fill="none" stroke="#c8fff8" stroke-width="2.2" opacity="0.7" stroke-dasharray="1.6 10 3.2 14 0.8 18"/>
+                  <circle r="236" fill="none" stroke="#00ffc2" stroke-width="1.4" opacity="0.45" stroke-dasharray="0.8 16 2.4 11"/>
+                </g>
               </g>
             </g>
           </g>
@@ -266,7 +272,13 @@
           <g clip-path="url(#ringFront)">
             <g transform="translate(300 300) rotate(-26) scale(1 0.30)">
               <g class="ring-debris">
+                <rect x="-240" y="-240" width="480" height="480" fill="none"/>
                 <use href="#ringDebrisBits"/>
+                <g class="ring-mobile-gleam">
+                  <circle r="218" fill="none" stroke="#f7ffff" stroke-width="3.2" opacity="0.9" stroke-dasharray="3.4 7 1.1 12 5 9"/>
+                  <circle r="228" fill="none" stroke="#c8fff8" stroke-width="2.2" opacity="0.7" stroke-dasharray="1.6 10 3.2 14 0.8 18"/>
+                  <circle r="236" fill="none" stroke="#00ffc2" stroke-width="1.4" opacity="0.45" stroke-dasharray="0.8 16 2.4 11"/>
+                </g>
               </g>
             </g>
           </g>
