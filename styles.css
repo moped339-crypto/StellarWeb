@@ -272,6 +272,9 @@ main, header, footer{position:relative; z-index:1;}
   border:1px solid rgba(0,255,194,0.18);
   pointer-events:none;
 }
+.preview-stage picture{
+  display:block; width:100%; height:100%;
+}
 .preview-stage::after{
   content:""; position:absolute; left:0; right:0; bottom:0; height:48px;
   background:linear-gradient(180deg, transparent, rgba(5,5,10,0.55));
@@ -280,18 +283,31 @@ main, header, footer{position:relative; z-index:1;}
 .preview-scrollshot{
   width:100%; height:auto; display:block;
   transform:translateY(0);
-  animation:preview-pan 64s linear infinite alternate;
-  will-change:transform;
 }
-.grid-portfolio .portfolio-card:nth-child(2) .preview-scrollshot{animation-delay:-8s;}
-.grid-portfolio .portfolio-card:nth-child(3) .preview-scrollshot{animation-delay:-16s;}
-.grid-portfolio .portfolio-card:nth-child(4) .preview-scrollshot{animation-delay:-24s;}
-.grid-portfolio .portfolio-card:nth-child(5) .preview-scrollshot{animation-delay:-32s;}
-.grid-portfolio .portfolio-card:nth-child(6) .preview-scrollshot{animation-delay:-40s;}
-.grid-portfolio .portfolio-card:nth-child(7) .preview-scrollshot{animation-delay:-48s;}
-.grid-portfolio .portfolio-card:nth-child(8) .preview-scrollshot{animation-delay:-56s;}
-.card.portfolio-card:hover .preview-scrollshot{
-  animation-duration:42s;
+@media (min-width:768px){
+  .preview-scrollshot{
+    animation:preview-pan 64s linear infinite alternate;
+    will-change:transform;
+  }
+  .grid-portfolio .portfolio-card:nth-child(2) .preview-scrollshot{animation-delay:-8s;}
+  .grid-portfolio .portfolio-card:nth-child(3) .preview-scrollshot{animation-delay:-16s;}
+  .grid-portfolio .portfolio-card:nth-child(4) .preview-scrollshot{animation-delay:-24s;}
+  .grid-portfolio .portfolio-card:nth-child(5) .preview-scrollshot{animation-delay:-32s;}
+  .grid-portfolio .portfolio-card:nth-child(6) .preview-scrollshot{animation-delay:-40s;}
+  .grid-portfolio .portfolio-card:nth-child(7) .preview-scrollshot{animation-delay:-48s;}
+  .grid-portfolio .portfolio-card:nth-child(8) .preview-scrollshot{animation-delay:-56s;}
+  .card.portfolio-card:hover .preview-scrollshot{
+    animation-duration:42s;
+  }
+}
+@media (max-width:767px){
+  .preview-scrollshot{
+    animation:none;
+    will-change:auto;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+  }
 }
 @keyframes preview-pan{
   0%, 12%{transform:translateY(0);}
