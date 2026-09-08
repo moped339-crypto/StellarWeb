@@ -1265,14 +1265,7 @@ main, header, footer{position:relative; z-index:1;}
 }
 
 @media (max-width:767px){
-  html{animation:none;}
-  .sky-map,
-  .glow,
-  .grid-overlay,
-  .starfield,
-  .neptune-glow,
-  .sofia-mw-img,
-  .sofia-planet::before{
+  .sky-map{
     display:none !important;
     animation:none !important;
   }
@@ -1283,23 +1276,18 @@ main, header, footer{position:relative; z-index:1;}
   }
   .hero{padding:12px 20px 44px; gap:8px;}
   .hero-visual{max-width:236px;}
-  .neptune-glow, .neptune-clouds, .neptune-moon, .star-twinkle, .data-orb,
-  .ring-debris, .ring-dash{
-    animation:none !important;
+  .neptune-clouds{animation-duration:16s;}
+  .neptune-moon{animation-duration:8s;}
+  .ring-debris{animation-duration:12s;}
+  .data-orb{animation-duration:5.5s;}
+  .neptune-glow{animation-duration:3.8s;}
+  .neptune-rings{
+    filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px rgba(232,251,255,0.55));
   }
-  .neptune-rings{filter:none;}
-  .ring-mobile-gleam{display:none;}
-  .sofia-mw-img,
-  .sofia-planet::before{
-    animation:none !important;
-    will-change:auto;
-  }
-  .sofia-mw-img{filter:none;}
-  .sofia-planet{
-    background:radial-gradient(circle at 38% 34%, #f7fffb 0%, #00ffc2 38%, #25d366 68%, #0e5c44 100%);
-    clip-path:circle(46% at 50% 50%);
-  }
-  .sofia-planet::before{display:none !important;}
+  .ring-mobile-gleam{display:block;}
+  .ring-dust{opacity:0.28;}
+  .ring-dash{opacity:0.95; stroke-width:2.4px;}
+  .sofia-mw-img{will-change:auto;}
   .card.portfolio-card{overflow:hidden;}
   .portfolio-clip.is-limited{overflow:hidden;}
   .portfolio-more:not([hidden]){display:inline-flex;}

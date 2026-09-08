@@ -672,12 +672,6 @@
   applyPortfolioView();
 
   if (window.innerWidth >= 768) {
-    var galaxyImg = document.querySelector(".sofia-mw-img");
-    if (galaxyImg) {
-      var galaxySrc = galaxyImg.getAttribute("data-src");
-      if (galaxySrc) galaxyImg.src = galaxySrc;
-    }
-
     var skyMap = document.querySelector(".sky-map");
     var skyReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     var skyScrollAnim = false;
@@ -703,15 +697,7 @@
       }, { passive: true });
     }
   } else {
-    var bgFx = document.querySelector(".bg-fx");
-    if (bgFx) {
-      bgFx.replaceChildren();
-    }
-    var mobileGalaxy = document.querySelector(".sofia-mw-img");
-    if (mobileGalaxy) {
-      mobileGalaxy.removeAttribute("src");
-      mobileGalaxy.removeAttribute("data-src");
-      mobileGalaxy.remove();
-    }
+    var skyMapMobile = document.querySelector(".sky-map");
+    if (skyMapMobile) skyMapMobile.remove();
   }
 })();
