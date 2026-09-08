@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#05050A" />
 <link rel="canonical" href="https://stellarweb.pt/" />
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="/assets/logo.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.svg" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Stellar Web Studio" />
@@ -151,9 +151,6 @@
           <clipPath id="ringFront">
             <rect x="0" y="300" width="600" height="300"/>
           </clipPath>
-          <filter id="planetSoft" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0.6"/>
-          </filter>
           <g id="ringDebrisBits">
             <circle class="ring-dust" r="212" fill="none" stroke="#9aa8c7" stroke-width="8" opacity="0.05"/>
             <circle class="ring-dust" r="222" fill="none" stroke="#c8fff8" stroke-width="4" opacity="0.08"/>
@@ -220,7 +217,7 @@
         </g>
 
         <circle cx="300" cy="300" r="128" fill="url(#neptuneLit)"/>
-        <g clip-path="url(#planetClip)" class="neptune-clouds" filter="url(#planetSoft)">
+        <g clip-path="url(#planetClip)" class="neptune-clouds">
           <ellipse cx="300" cy="248" rx="126" ry="18" fill="#9fe9ff" opacity="0.12"/>
           <ellipse cx="300" cy="278" rx="124" ry="11" fill="#14386f" opacity="0.28"/>
           <ellipse cx="300" cy="300" rx="128" ry="10" fill="#06152e" opacity="0.22"/>

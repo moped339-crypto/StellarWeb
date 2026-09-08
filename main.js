@@ -661,31 +661,6 @@
     portfolioGrid.querySelectorAll("img").forEach(function (img) {
       img.addEventListener("load", applyPortfolioView);
     });
-    portfolioGrid.querySelectorAll(".preview-stage").forEach(function (stage) {
-      var startY = 0;
-      var startTop = 0;
-      var dragging = false;
-      stage.addEventListener("touchstart", function (e) {
-        if (!portfolioMobile.matches || e.touches.length !== 1) return;
-        dragging = true;
-        startY = e.touches[0].clientY;
-        startTop = stage.scrollTop;
-      }, { passive: true });
-      stage.addEventListener("touchmove", function (e) {
-        if (!dragging || !portfolioMobile.matches || e.touches.length !== 1) return;
-        var max = stage.scrollHeight - stage.clientHeight;
-        if (max <= 1) return;
-        var dy = startY - e.touches[0].clientY;
-        if ((startTop <= 0 && dy < 0) || (startTop >= max - 1 && dy > 0)) return;
-        var next = startTop + dy;
-        if (next < 0) next = 0;
-        if (next > max) next = max;
-        e.preventDefault();
-        stage.scrollTop = next;
-      }, { passive: false });
-      stage.addEventListener("touchend", function () { dragging = false; }, { passive: true });
-      stage.addEventListener("touchcancel", function () { dragging = false; }, { passive: true });
-    });
   }
 
   applyPortfolioView();
@@ -715,6 +690,9 @@
         }
       }, { passive: true });
     }
+  } else {
+    var skyMapMobile = document.querySelector(".sky-map");
+    if (skyMapMobile) skyMapMobile.remove();
   }
 
   if (window.matchMedia("(max-width: 767px)").matches && "IntersectionObserver" in window) {

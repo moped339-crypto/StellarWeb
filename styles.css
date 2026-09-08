@@ -395,7 +395,8 @@ main, header, footer{position:relative; z-index:1;}
   outline-offset:3px;
 }
 .preview-stage{
-  position:relative; height:208px; overflow:hidden;
+  --preview-h:208px;
+  position:relative; height:var(--preview-h); overflow:hidden;
   margin:12px 12px 0;
   border-radius:12px;
   background:#05050A;
@@ -414,56 +415,28 @@ main, header, footer{position:relative; z-index:1;}
 .preview-scrollshot{
   width:100%; height:auto; display:block;
   transform:translateY(0);
+  animation:preview-pan 64s linear infinite alternate;
 }
+.grid-portfolio .portfolio-card:nth-child(2) .preview-scrollshot{animation-delay:-8s;}
+.grid-portfolio .portfolio-card:nth-child(3) .preview-scrollshot{animation-delay:-16s;}
+.grid-portfolio .portfolio-card:nth-child(4) .preview-scrollshot{animation-delay:-24s;}
+.grid-portfolio .portfolio-card:nth-child(5) .preview-scrollshot{animation-delay:-32s;}
+.grid-portfolio .portfolio-card:nth-child(6) .preview-scrollshot{animation-delay:-40s;}
+.grid-portfolio .portfolio-card:nth-child(7) .preview-scrollshot{animation-delay:-48s;}
+.grid-portfolio .portfolio-card:nth-child(8) .preview-scrollshot{animation-delay:-56s;}
 @media (min-width:768px){
-  .preview-scrollshot{
-    animation:preview-pan 64s linear infinite alternate;
-    will-change:transform;
-  }
-  .grid-portfolio .portfolio-card:nth-child(2) .preview-scrollshot{animation-delay:-8s;}
-  .grid-portfolio .portfolio-card:nth-child(3) .preview-scrollshot{animation-delay:-16s;}
-  .grid-portfolio .portfolio-card:nth-child(4) .preview-scrollshot{animation-delay:-24s;}
-  .grid-portfolio .portfolio-card:nth-child(5) .preview-scrollshot{animation-delay:-32s;}
-  .grid-portfolio .portfolio-card:nth-child(6) .preview-scrollshot{animation-delay:-40s;}
-  .grid-portfolio .portfolio-card:nth-child(7) .preview-scrollshot{animation-delay:-48s;}
-  .grid-portfolio .portfolio-card:nth-child(8) .preview-scrollshot{animation-delay:-56s;}
+  .preview-scrollshot{will-change:transform;}
   .card.portfolio-card:hover .preview-scrollshot{
     animation-duration:42s;
   }
 }
 @media (max-width:767px){
-  .preview-stage{
-    height:min(58vw, 280px);
-    min-height:220px;
-    pointer-events:auto;
-    overflow-y:scroll;
-    overflow-x:hidden;
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior-y:auto;
-    touch-action:pan-y;
-    transform:translateZ(0);
-    isolation:isolate;
-  }
-  .preview-stage picture{height:auto;}
-  .preview-stage::-webkit-scrollbar{width:3px;}
-  .preview-stage::-webkit-scrollbar-thumb{
-    background:rgba(0,255,194,0.35);
-    border-radius:2px;
-  }
-  .preview-scrollshot{
-    animation:none;
-    will-change:auto;
-    height:auto;
-    width:100%;
-    object-fit:unset;
-    object-position:top center;
-    transform:none;
-    pointer-events:none;
-  }
+  .preview-stage{--preview-h:240px;}
+  .preview-scrollshot{will-change:auto;}
 }
 @keyframes preview-pan{
   0%, 12%{transform:translateY(0);}
-  88%, 100%{transform:translateY(calc(-100% + 208px));}
+  88%, 100%{transform:translateY(calc(-100% + var(--preview-h, 208px)));}
 }
 @media (prefers-reduced-motion:reduce){
   .preview-scrollshot{animation:none;}
@@ -1293,26 +1266,13 @@ main, header, footer{position:relative; z-index:1;}
 }
 
 @media (max-width:767px){
-  .sky-map{
-    display:block;
-    opacity:0.34;
-    animation:none;
-    will-change:auto;
-    transform:none;
-  }
-  .sky-map::before{content:none; background:none; animation:none;}
+  .sky-map,
+  .sky-map::before,
   .sky-map::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-      radial-gradient(circle at 18% 11%, rgba(232,251,255,.5) 0 1px, transparent 2.6px),
-      radial-gradient(circle at 74% 16%, rgba(232,251,255,.42) 0 1.1px, transparent 2.8px),
-      radial-gradient(circle at 36% 9%, rgba(200,255,248,.38) 0 1px, transparent 2.5px),
-      radial-gradient(circle at 88% 38%, rgba(255,255,255,.32) 0 1px, transparent 2.6px),
-      radial-gradient(circle at 12% 48%, rgba(232,251,255,.28) 0 1px, transparent 2.5px);
-    animation:sky-flare 7s ease-in-out infinite;
+    display:none !important;
+    animation:none !important;
+    content:none !important;
+    background:none !important;
   }
   .bg-fx{
     background:
@@ -1321,13 +1281,14 @@ main, header, footer{position:relative; z-index:1;}
   }
   .hero{padding:12px 20px 44px; gap:8px;}
   .hero-visual{max-width:236px;}
-  .neptune-rings{
-    filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px rgba(232,251,255,0.55));
-  }
+  .neptune-rings{filter:brightness(1.45) saturate(1.15);}
   .ring-mobile-gleam{display:block;}
   .ring-dust{opacity:0.28;}
   .ring-dash{opacity:0.95; stroke-width:2.4px;}
-  .sofia-mw-img{will-change:auto;}
+  .sofia-mw-img{
+    will-change:auto;
+    filter:none;
+  }
   .navbar,
   .card,
   .price-card,
@@ -1337,8 +1298,13 @@ main, header, footer{position:relative; z-index:1;}
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
   }
-  .is-offscreen::after{
+  .is-offscreen::after,
+  .is-offscreen .preview-scrollshot{
     animation-play-state:paused;
+  }
+  #audit, #pricing, #process, #contact, .footer{
+    content-visibility:auto;
+    contain-intrinsic-size:1px 720px;
   }
   .data-orb.is-offscreen,
   .data-orb.is-offscreen .neptune-glow,
