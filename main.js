@@ -517,13 +517,16 @@
       setTimeout(sofiaOnKeyboardChange, 250);
     });
 
-    sofiaForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (sofiaBusy) return;
-      var text = (sofiaInput.value || "").trim();
-      if (!text) return;
+    function sofiaHideQuick() {
+      var quick = document.getElementById("sofiaQuick");
+      if (quick) quick.hidden = true;
+    }
 
-      sofiaInput.value = "";
+    function sofiaSendMessage(text) {
+      text = String(text || "").replace(/\s+/g, " ").trim();
+      if (!text || sofiaBusy) return;
+
+      sofiaHideQuick();
       sofiaAppend("user", text);
       sofiaHistory.push({ role: "user", content: text });
       if (sofiaHistory.length > 12) sofiaHistory = sofiaHistory.slice(-12);
@@ -532,6 +535,9 @@
       sofiaInput.disabled = true;
       var sendBtn = sofiaForm.querySelector(".sofia-send");
       if (sendBtn) sendBtn.disabled = true;
+      document.querySelectorAll(".sofia-quick-btn").forEach(function (btn) {
+        btn.disabled = true;
+      });
 
       var typing = document.createElement("div");
       typing.className = "sofia-msg sofia-msg-bot";
@@ -570,6 +576,20 @@
           if (sendBtn) sendBtn.disabled = false;
           sofiaInput.focus();
         });
+    }
+
+    sofiaForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var text = (sofiaInput.value || "").trim();
+      if (!text) return;
+      sofiaInput.value = "";
+      sofiaSendMessage(text);
+    });
+
+    document.querySelectorAll(".sofia-quick-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        sofiaSendMessage(btn.textContent || "");
+      });
     });
   }
 
