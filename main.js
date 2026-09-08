@@ -583,14 +583,15 @@
   var PORTFOLIO_MOBILE_LIMIT = 2;
 
   function setPortfolioCardAccess(card, limited) {
+    var link = card.querySelector(".portfolio-card-link");
     if (limited) {
       card.setAttribute("aria-hidden", "true");
-      card.setAttribute("tabindex", "-1");
+      if (link) link.setAttribute("tabindex", "-1");
       if ("inert" in card) card.inert = true;
       return;
     }
     card.removeAttribute("aria-hidden");
-    card.removeAttribute("tabindex");
+    if (link) link.removeAttribute("tabindex");
     if ("inert" in card) card.inert = false;
   }
 
@@ -667,6 +668,13 @@
     portfolioGrid.querySelectorAll("img").forEach(function (img) {
       img.addEventListener("load", applyPortfolioView);
     });
+    portfolioGrid.querySelectorAll(".preview-stage").forEach(function (stage) {
+      stage.addEventListener("click", function (e) {
+        if (!portfolioMobile.matches) return;
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
   }
 
   applyPortfolioView();
@@ -696,8 +704,16 @@
         }
       }, { passive: true });
     }
-  } else {
-    var skyMapMobile = document.querySelector(".sky-map");
-    if (skyMapMobile) skyMapMobile.remove();
+  }
+
+  if (window.matchMedia("(max-width: 767px)").matches && "IntersectionObserver" in window) {
+    var pauseOffscreen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting);
+      });
+    }, { rootMargin: "120px 0px", threshold: 0 });
+    document.querySelectorAll(".card, .price-card, .process-card, .audit-block, .whatsapp-block, .data-orb").forEach(function (el) {
+      pauseOffscreen.observe(el);
+    });
   }
 })();
