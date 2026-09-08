@@ -596,21 +596,10 @@
   }
 
   function applyPortfolioClip(matching, mobile) {
-    if (!portfolioClip || !portfolioGrid) return;
+    if (!portfolioClip) return;
     var limited = mobile && !portfolioExpanded && matching.length > PORTFOLIO_MOBILE_LIMIT;
     portfolioClip.classList.toggle("is-limited", limited);
-    if (!mobile) {
-      portfolioClip.style.maxHeight = "";
-      return;
-    }
-    if (!limited) {
-      portfolioClip.style.maxHeight = portfolioGrid.scrollHeight + "px";
-      return;
-    }
-    var lastVisible = matching[PORTFOLIO_MOBILE_LIMIT - 1];
-    var clipTop = portfolioClip.getBoundingClientRect().top;
-    var height = Math.ceil(lastVisible.getBoundingClientRect().bottom - clipTop);
-    portfolioClip.style.maxHeight = Math.max(height, 0) + "px";
+    portfolioClip.style.maxHeight = "";
   }
 
   function applyPortfolioView() {
@@ -622,10 +611,14 @@
       var match = card.getAttribute("data-kind") === portfolioFilter;
       card.classList.toggle("is-filtered-out", !match);
       if (match) matching.push(card);
-      else setPortfolioCardAccess(card, false);
+      else {
+        card.classList.remove("is-clipped-away");
+        setPortfolioCardAccess(card, false);
+      }
     });
     matching.forEach(function (card, index) {
       var hide = mobile && !portfolioExpanded && index >= PORTFOLIO_MOBILE_LIMIT;
+      card.classList.toggle("is-clipped-away", hide);
       setPortfolioCardAccess(card, hide);
     });
     if (portfolioMore) {
@@ -669,11 +662,29 @@
       img.addEventListener("load", applyPortfolioView);
     });
     portfolioGrid.querySelectorAll(".preview-stage").forEach(function (stage) {
-      stage.addEventListener("click", function (e) {
-        if (!portfolioMobile.matches) return;
+      var startY = 0;
+      var startTop = 0;
+      var dragging = false;
+      stage.addEventListener("touchstart", function (e) {
+        if (!portfolioMobile.matches || e.touches.length !== 1) return;
+        dragging = true;
+        startY = e.touches[0].clientY;
+        startTop = stage.scrollTop;
+      }, { passive: true });
+      stage.addEventListener("touchmove", function (e) {
+        if (!dragging || !portfolioMobile.matches || e.touches.length !== 1) return;
+        var max = stage.scrollHeight - stage.clientHeight;
+        if (max <= 1) return;
+        var dy = startY - e.touches[0].clientY;
+        if ((startTop <= 0 && dy < 0) || (startTop >= max - 1 && dy > 0)) return;
+        var next = startTop + dy;
+        if (next < 0) next = 0;
+        if (next > max) next = max;
         e.preventDefault();
-        e.stopPropagation();
-      });
+        stage.scrollTop = next;
+      }, { passive: false });
+      stage.addEventListener("touchend", function () { dragging = false; }, { passive: true });
+      stage.addEventListener("touchcancel", function () { dragging = false; }, { passive: true });
     });
   }
 
