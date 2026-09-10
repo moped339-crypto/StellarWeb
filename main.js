@@ -715,6 +715,15 @@
     if (skyMapMobile) skyMapMobile.remove();
   }
 
+  var citiesNav = document.querySelector(".footer-cities");
+  var citiesToggle = document.getElementById("footerCitiesToggle");
+  if (citiesNav && citiesToggle) {
+    citiesToggle.addEventListener("click", function () {
+      var open = citiesNav.classList.toggle("is-open");
+      citiesToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+
   if (window.matchMedia("(max-width: 767px)").matches && "IntersectionObserver" in window) {
     var pauseOffscreen = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {

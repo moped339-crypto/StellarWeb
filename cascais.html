@@ -765,16 +765,25 @@
     <span class="footer-copy" data-i18n="footer.copy">© 2026 Stellar Web Studio.</span>
     <button type="button" class="footer-privacy" id="privacyLink" data-i18n="footer.privacy">Política de Privacidade</button>
   </div>
-  <nav class="footer-cities" aria-label="Web design em Portugal">
-    <span class="footer-cities-label" data-i18n="footer.cities">Web design em Portugal</span>
-    <a href="/lisboa">Lisboa</a>
-    <a href="/cascais" aria-current="page">Cascais</a>
-    <a href="/oeiras">Oeiras</a>
-    <a href="/almada">Almada</a>
-    <a href="/porto">Porto</a>
-    <a href="/braga">Braga</a>
-    <a href="/viseu">Viseu</a>
-    <a href="/faro">Faro</a>
+  <nav class="footer-cities" aria-label="Áreas de Atendimento">
+    <button type="button" class="footer-cities-toggle" id="footerCitiesToggle" aria-expanded="false" aria-controls="footerCitiesPanel">
+      <span data-i18n="footer.cities">Áreas de Atendimento 📍</span>
+      <span class="footer-cities-chevron" aria-hidden="true"></span>
+    </button>
+    <div class="footer-cities-panel" id="footerCitiesPanel">
+      <div class="footer-cities-panel-inner">
+        <div class="footer-cities-grid">
+          <a href="/lisboa">Lisboa</a>
+          <a href="/cascais" aria-current="page">Cascais</a>
+          <a href="/oeiras">Oeiras</a>
+          <a href="/almada">Almada</a>
+          <a href="/porto">Porto</a>
+          <a href="/braga">Braga</a>
+          <a href="/viseu">Viseu</a>
+          <a href="/faro">Faro</a>
+        </div>
+      </div>
+    </div>
   </nav>
   <div class="footer-legal">
     <a href="https://livroreclamacoes.pt" target="_blank" rel="noopener" class="footer-badge">

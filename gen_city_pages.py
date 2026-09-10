@@ -106,11 +106,20 @@ def footer_nav(current: str | None = None) -> str:
     for city in CITIES:
         current_attr = ' aria-current="page"' if city["slug"] == current else ""
         links.append(f'<a href="/{city["slug"]}"{current_attr}>{city["name"]}</a>')
-    inner = "\n    ".join(links)
+    inner = "\n          ".join(links)
     return (
-        '  <nav class="footer-cities" aria-label="Web design em Portugal">\n'
-        '    <span class="footer-cities-label" data-i18n="footer.cities">Web design em Portugal</span>\n'
-        f"    {inner}\n"
+        '  <nav class="footer-cities" aria-label="Áreas de Atendimento">\n'
+        '    <button type="button" class="footer-cities-toggle" id="footerCitiesToggle" aria-expanded="false" aria-controls="footerCitiesPanel">\n'
+        '      <span data-i18n="footer.cities">Áreas de Atendimento 📍</span>\n'
+        '      <span class="footer-cities-chevron" aria-hidden="true"></span>\n'
+        "    </button>\n"
+        '    <div class="footer-cities-panel" id="footerCitiesPanel">\n'
+        '      <div class="footer-cities-panel-inner">\n'
+        '        <div class="footer-cities-grid">\n'
+        f"          {inner}\n"
+        "        </div>\n"
+        "      </div>\n"
+        "    </div>\n"
         "  </nav>"
     )
 
