@@ -152,6 +152,11 @@ main, header, footer{position:relative; z-index:1;}
   letter-spacing:0.12em; color:var(--cyan); margin-bottom:18px;
   text-transform:uppercase;
 }
+.hero-seo{
+  font-size:clamp(1.08rem, 2.4vw, 1.42rem);
+  font-weight:700; line-height:1.28; letter-spacing:-0.01em;
+  color:var(--text); max-width:34em; margin:0 0 14px;
+}
 .hero-title{
   font-size:clamp(2.2rem, 5vw, 3.6rem);
   font-weight:800; line-height:1.1; letter-spacing:-0.02em;
@@ -1509,6 +1514,7 @@ main, header, footer{position:relative; z-index:1;}
   .hero-visual{max-width:210px;}
   .eyebrow{margin-bottom:8px;}
   .hero-title{margin-bottom:12px; font-size:clamp(1.65rem, 7.2vw, 2.15rem);}
+  .hero-seo{font-size:clamp(1rem, 4.4vw, 1.2rem); margin-bottom:10px; max-width:none;}
   .hero-sub{margin-bottom:18px;}
   .section{padding:64px 20px;}
   .whatsapp-block{flex-direction:column; padding:28px 24px; gap:14px;}

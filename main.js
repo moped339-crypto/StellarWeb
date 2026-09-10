@@ -29,7 +29,7 @@
     document.querySelectorAll(".lang-btn").forEach(function (btn) {
       btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
     });
-    document.documentElement.setAttribute("lang", lang);
+    document.documentElement.setAttribute("lang", lang === "pt" ? "pt-PT" : lang);
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
     if (sofiaHistory && sofiaHistory.length <= 1) {
       sofiaHistory = [{ role: "assistant", content: dict["chat.welcome"] || "" }];

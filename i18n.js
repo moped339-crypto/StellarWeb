@@ -2,6 +2,7 @@ const I18N = {
   pt: {
     "nav.cta": "Fale Connosco",
     "hero.eyebrow": "// ESTÚDIO DE WEB DESIGN · PORTUGAL",
+    "hero.h1": "Criação de Websites Profissionais e Lojas Online em Portugal",
     "hero.title1": "O Futuro Digital do Seu Negócio",
     "hero.title2": "Começa Aqui.",
     "hero.sub": "Criamos websites premium, ultra-modernos e totalmente otimizados para smartphones. Atraia mais clientes em Portugal com uma presença online de elite.",
@@ -150,6 +151,7 @@ const I18N = {
   en: {
     "nav.cta": "Contact Us",
     "hero.eyebrow": "// WEB DESIGN STUDIO · PORTUGAL",
+    "hero.h1": "Professional Website and Online Store Creation in Portugal",
     "hero.title1": "The Digital Future of Your Business",
     "hero.title2": "Starts Here.",
     "hero.sub": "We design premium, ultra-modern, and fully mobile-optimized websites. Attract more clients in Portugal with an elite online presence.",
@@ -298,6 +300,7 @@ const I18N = {
   ru: {
     "nav.cta": "Связаться",
     "hero.eyebrow": "// СТУДИЯ ВЕБ-ДИЗАЙНА · ПОРТУГАЛИЯ",
+    "hero.h1": "Создание профессиональных сайтов и интернет-магазинов в Португалии",
     "hero.title1": "Цифровое будущее вашего бизнеса",
     "hero.title2": "начинается здесь.",
     "hero.sub": "Создаем премиальные, ультрасовременные сайты с идеальной адаптацией под мобильные устройства. Привлекайте статусных клиентов в Португалии.",
