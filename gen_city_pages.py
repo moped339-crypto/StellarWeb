@@ -212,15 +212,16 @@ def write_sitemap() -> None:
 
 def write_redirects() -> None:
     lines = [
+        "# Static files must win over city pretty-URL rules.",
+        "/sitemap.xml    /sitemap.xml    200!",
+        "/robots.txt     /robots.txt     200!",
+        "",
         "# Pretty URLs: /lisboa serves lisboa.html without exposing the extension.",
     ]
     for city in CITIES:
         slug = city["slug"]
         lines.append(f"/{slug}    /{slug}.html    200")
         lines.append(f"/{slug}.html    /{slug}    301")
-    lines.append("")
-    lines.append("# Path glue for clean city URLs (assets keep their real files).")
-    lines.append("/*    /:splat    200")
     lines.append("")
     (ROOT / "_redirects").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 

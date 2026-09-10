@@ -1,3 +1,7 @@
+# Static files must win over city pretty-URL rules.
+/sitemap.xml    /sitemap.xml    200!
+/robots.txt     /robots.txt     200!
+
 # Pretty URLs: /lisboa serves lisboa.html without exposing the extension.
 /lisboa    /lisboa.html    200
 /lisboa.html    /lisboa    301
@@ -15,6 +19,3 @@
 /viseu.html    /viseu    301
 /faro    /faro.html    200
 /faro.html    /faro    301
-
-# Path glue for clean city URLs (assets keep their real files).
-/*    /:splat    200
