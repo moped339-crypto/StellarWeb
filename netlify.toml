@@ -19,3 +19,10 @@
   from = "/api/chat"
   to = "/.netlify/functions/chat"
   status = 200
+
+# Canonical host: www → apex, keep the original path.
+[[redirects]]
+  from = "https://www.stellarweb.pt/*"
+  to = "https://stellarweb.pt/:splat"
+  status = 301
+  force = true
