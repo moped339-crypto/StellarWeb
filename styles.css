@@ -1252,6 +1252,7 @@ main, header, footer{position:relative; z-index:1;}
   gap:26px 44px;
 }
 .seo-body p{color:var(--text-dim); font-size:0.96rem; line-height:1.9; overflow-wrap:anywhere;}
+.seo-body strong{color:var(--text); font-weight:700;}
 
 /* FOOTER */
 .footer{border-top:1px solid rgba(255,255,255,0.08); padding:28px 24px;}

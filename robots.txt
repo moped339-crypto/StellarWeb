@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Direct sitemap URL for all crawlers
 Sitemap: https://stellarweb.pt/sitemap.xml
