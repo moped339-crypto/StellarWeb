@@ -1267,6 +1267,28 @@ main, header, footer{position:relative; z-index:1;}
 }
 .footer-brand{font-size:0.9rem;}
 .footer-copy{color:var(--text-dim); font-size:0.82rem;}
+.footer-cities{
+  max-width:1200px; margin:18px auto 0;
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 12px;
+}
+.footer-cities-label{
+  width:100%; text-align:center;
+  font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--text-dim);
+}
+.footer-cities a{
+  color:var(--text-dim); font-size:0.82rem; text-decoration:none;
+  border:1px solid var(--glass-border); border-radius:999px; padding:6px 14px;
+  transition:color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.footer-cities a:hover,
+.footer-cities a:focus-visible{
+  color:var(--cyan); border-color:var(--cyan);
+  box-shadow:0 0 14px rgba(0,255,194,0.16); outline:none;
+}
+.footer-cities a[aria-current="page"]{
+  color:var(--cyan); border-color:var(--cyan);
+}
 .footer-privacy{
   -webkit-appearance:none; appearance:none; font-family:inherit;
   color:var(--text-dim); font-size:0.82rem; cursor:pointer;

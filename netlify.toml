@@ -26,3 +26,44 @@
   to = "https://stellarweb.pt/:splat"
   status = 301
   force = true
+
+# Pretty URLs for city landings (also listed in _redirects).
+[[redirects]]
+  from = "/lisboa"
+  to = "/lisboa.html"
+  status = 200
+
+[[redirects]]
+  from = "/cascais"
+  to = "/cascais.html"
+  status = 200
+
+[[redirects]]
+  from = "/oeiras"
+  to = "/oeiras.html"
+  status = 200
+
+[[redirects]]
+  from = "/almada"
+  to = "/almada.html"
+  status = 200
+
+[[redirects]]
+  from = "/porto"
+  to = "/porto.html"
+  status = 200
+
+[[redirects]]
+  from = "/braga"
+  to = "/braga.html"
+  status = 200
+
+[[redirects]]
+  from = "/viseu"
+  to = "/viseu.html"
+  status = 200
+
+[[redirects]]
+  from = "/faro"
+  to = "/faro.html"
+  status = 200
